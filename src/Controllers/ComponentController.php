@@ -191,13 +191,16 @@ _________   _______              _________         _______    _         ________
 
 		if ($confirmation === 'yes')
 		{
-			Printer::println(Printer::getColorizeMessage("Creating the component...", 'green'));
+			Printer::println(Printer::getColorizeMessage("Generating the component metadata...", 'purple'));
 			\file_put_contents($this->workingDirectory . '/component.json', \json_encode($this->meta, JSON_UNESCAPED_SLASHES));
+			Printer::println(Printer::getColorizeMessage("Metadata generation completed.", 'green'));
 		}
 		else
 		{
 			Printer::println(Printer::getColorizeMessage("Aborted component creation!", 'red'));
 		}
+
+		Printer::println();
 	}
 
 	/**
@@ -366,8 +369,14 @@ _________   _______              _________         _______    _         ________
 		Printer::println();
 		
 		$this->createComponentMeta();
+
+		Printer::println(Printer::getColorizeMessage("Creating component core files...", 'purple'));
 		$this->createComponentFiles();
+
+		Printer::println(Printer::getColorizeMessage("Creating component language files...", 'purple'));
 		$this->createLanguageFiles();
+
+		Printer::println(Printer::getColorizeMessage("Creating component media files...", 'purple'));
 		$this->createMediaFiles();
 	}
 }
