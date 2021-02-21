@@ -282,6 +282,46 @@ _________   _______              _________         _______    _         ________
 		}
 	}
 
+	/**
+	 * Create media files.
+	 *
+	 * @return	void
+	 *
+	 * @since	1.0.0
+	 */
+	public function createMediaFiles()
+	{
+		$sourceMap = SourceMap::getSourceMap();
+
+		$cliRoot = __DIR__ . '/../Assets/media/';
+		$componentRoot = $this->workingDirectory;
+
+		$parser = new SourceParser;
+
+		foreach ($sourceMap as $map)
+		{
+			if ($map['package'] !== 'media')
+			{
+				continue;
+			}
+
+			$src = $cliRoot . rtrim($map['directory'], '/') . '/' . $map['src'];
+			$destDirectory = $componentRoot . '/media/'
+				. ComponentHelper::getModifiedName($this->name, 'prefix')
+				. rtrim($map['directory'], '/');
+
+			$destDirectory = rtrim($destDirectory, '/');
+
+			if (!\file_exists($destDirectory))
+			{
+				mkdir($destDirectory, 0755, true);
+			}
+
+			$dest = ComponentHelper::parseContent($destDirectory . '/' . $map['dest'], $this->meta);
+			$parser->src($src)->dest($dest)->parse();
+		}
+	}
+
 
 	/**
 	 * The run function for the controller which is responsible for running a command.
@@ -328,5 +368,6 @@ _________   _______              _________         _______    _         ________
 		$this->createComponentMeta();
 		$this->createComponentFiles();
 		$this->createLanguageFiles();
+		$this->createMediaFiles();
 	}
 }

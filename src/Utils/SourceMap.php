@@ -189,6 +189,24 @@ final class SourceMap
 			'package' => 'language',
 			'client' => 'site'
 		],
+		[ 	'directory' => '/',
+			'src' => 'joomla.asset.txt',
+			'dest' => 'joomla.asset.json',
+			'package' => 'media',
+			'client' => ''
+		],
+		[ 	'directory' => '/js',
+			'src' => 'icons.txt',
+			'dest' => 'icons.js',
+			'package' => 'media',
+			'client' => ''
+		],
+		[ 	'directory' => '/css',
+			'src' => 'icons.txt',
+			'dest' => 'icons.css',
+			'package' => 'media',
+			'client' => ''
+		],
 	];
 
 	/**
