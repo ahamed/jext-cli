@@ -1,0 +1,134 @@
+.{{component}}-icomoon-icons {
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+}
+.{{component}}-icomoon-icons .box {
+	width: 120px;
+	height: 120px;
+	margin-bottom: 10px;
+	margin-right: 10px;
+	cursor: pointer;
+	color: #495057;
+	text-decoration: none;
+	position: relative;
+}
+
+.{{component}}-icomoon-icons .box .{{component}}-icon-preview {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 50%;
+}
+
+.{{component}}-icomoon-icons .box:hover {
+	background: #fff;
+	box-shadow: 0 0 2px 2px #dee2e694;
+	border-radius: 5px;
+}
+
+.{{component}}-icomoon-icons .box:hover .{{component}}-icon-preview {
+	background: #754ef9;
+	color: #fff;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.{{component}}-icomoon-icons .box .{{component}}-icon-info {
+	height: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	padding: 0 10px;
+}
+
+.{{component}}-icomoon-icons .box .preview {
+	font-size: 36px;
+}
+
+.{{component}}-icons-searchbar {
+	margin-bottom: 40px;
+	position: relative;
+}
+
+.{{component}}-icons-searchbar .placeholder-icon,
+.{{component}}-icons-searchbar .remove-icon {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	font-size: 20px;
+	color: #ccc;
+}
+
+.{{component}}-icons-searchbar .remove-icon {
+	display: none;
+	cursor: pointer;
+	transition: color 0.3s ease;
+}
+
+.{{component}}-icons-searchbar .remove-icon:hover {
+	color: #222;
+}
+
+.{{component}}-icons-searchbar .{{component}}-icon-search {
+	height: 60px;
+}
+
+.{{component}}-icon-info > span {
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-weight: 400;
+	font-size: 14px;
+}
+
+.{{component}}-copied-message {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	display: none;
+	color: #fff;
+	background: rgba(0, 0, 0, 0.6);
+	border-radius: 5px;
+}
+
+.{{component}}-no-icon {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+
+.{{component}}-no-icon h2 {
+	font-family: monospace;
+	margin-top: 20px;
+}
+
+.{{component}}-message-bar {
+	border-bottom: 2px solid rgb(187, 171, 171, 0.21);
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.{{component}}-search-keyword {
+	background: rgba(0, 0, 0, 0.6);
+	border-radius: 30px;
+	padding: 0px 10px;
+	color: #fff;
+	display: inline-flex;
+	justify-content: space-between;
+	align-items: center;
+	min-width: 80px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.{{component}}-search-keyword:hover {
+	background: rgba(255, 0, 0, 0.8);
+}

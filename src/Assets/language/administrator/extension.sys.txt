@@ -1,0 +1,4 @@
+{{prefix_component_uppercase}}="{{component_uppercase}}"
+{{prefix_component_uppercase}}_DASHBOARD_TITLE="Dashboard"
+{{prefix_component_uppercase}}_XML_DESCRIPTION="{{description}}"
+{{prefix_component_uppercase}}_SAMPLES="Samples"

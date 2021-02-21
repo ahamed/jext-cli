@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" method="upgrade">
+	<name>{{prefix_component}}</name>
+	<author>{{author}}</author>
+	<creationDate>{{creationDate}}</creationDate>
+	<copyright>{{copyright}}</copyright>
+	<license>{{license}}</license>
+	<authorEmail>{{email}}</authorEmail>
+	<authorUrl>{{url}}</authorUrl>
+	<version>{{version}}</version>
+	<description>{{prefix_component_uppercase}}_XML_DESCRIPTION</description>
+	<namespace path="src">{{namespace}}</namespace>
+
+	<!-- Runs on install -->
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+		</sql>
+	</install>
+
+	<files folder="site">
+		<folder>forms</folder>
+		<folder>helpers</folder>
+		<folder>src</folder>
+		<folder>tmpl</folder>
+	</files>
+
+	<languages folder="site">
+		<language tag="en-GB">language/en-GB/{{prefix_component}}.ini</language>
+	</languages>
+
+	<media destination="{{prefix_component}}" folder="media">
+		<folder>js</folder>
+	</media>
+
+	<administration>
+		<menu>{{prefix_component_uppercase}}</menu>
+		<submenu>
+			<!--
+				Note that all & must be escaped to &amp; for the file to be valid
+				XML and be parsed by the installer
+			-->
+			<menu link="option={{prefix_component}}"
+				view="icomoon" img="class:basket" alt="{{component_uppercase}}/Icomoon">{{prefix_component_uppercase}}_ICOMOON</menu>
+		</submenu>
+		<files folder="admin">
+			<filename>access.xml</filename>
+			<filename>config.xml</filename>
+			<filename>{{component}}.xml</filename>
+			<folder>forms</folder>
+			<folder>helpers</folder>
+			<folder>services</folder>
+			<folder>sql</folder>
+			<folder>src</folder>
+			<folder>tmpl</folder>
+		</files>
+		<languages folder="admin">
+			<language tag="en-GB">language/en-GB/{{prefix_component}}.ini</language>
+			<language tag="en-GB">language/en-GB/{{prefix_component}}.sys.ini</language>
+		</languages>
+	</administration>
+	<dashboards>
+		<dashboard title="{{prefix_component_uppercase}}_DASHBOARD_TITLE" icon="icon-file-alt">{{component}}</dashboard>
+	</dashboards>
+</extension>

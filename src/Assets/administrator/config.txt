@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<fieldset
+		name="basic"
+		label="{{prefix_component_uppercase}}_CONFIG_BASIC"
+		description="{{prefix_component_uppercase}}_CONFIG_BASIC_DESC"
+		>
+		<!-- The basic configuration fields would be here -->
+	</fieldset>
+	<fieldset
+		name="permissions"
+		label="JCONFIG_PERMISSIONS_LABEL"
+		description="JCONFIG_PERMISSIONS_DESC"
+		>
+		<field
+			name="rules"
+			type="rules"
+			label="JCONFIG_PERMISSIONS_LABEL"
+			validate="rules"
+			filter="rules"
+			component="{{prefix_component}}"
+			section="component"
+		/>
+	</fieldset>
+</config>

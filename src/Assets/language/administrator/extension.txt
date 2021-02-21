@@ -1,0 +1,16 @@
+;; Basic Texts
+{{prefix_component_uppercase}}_ERROR_UNIQUE_ALIAS="Another item has the same alias (remember it may be a trashed item)."
+{{prefix_component_uppercase}}_GLOBAL_TITLE="Title"
+{{prefix_component_uppercase}}_GLOBAL_TITLE_DESC="Write down the title"
+{{prefix_component_uppercase}}_GLOBAL_ALIAS="Alias"
+{{prefix_component_uppercase}}_GLOBAL_ALIAS_DESC="Write down a unique alias value or leave it empty."
+{{prefix_component_uppercase}}_GLOBAL_SEARCH_LABEL="Search"
+{{prefix_component_uppercase}}_GLOBAL_SEARCH_LABEL_DESC="Enter search keywords here"
+{{prefix_component_uppercase}}_GLOBAL_TAB_BASIC="Basic"
+
+;; Samples view
+{{prefix_component_uppercase}}_SAMPLES_TOOLBAR_LABEL="Samples"
+
+;; Sample view (single)
+{{prefix_component_uppercase}}_SAMPLE_NEW="Add new sample"
+{{prefix_component_uppercase}}_SAMPLE_EDIT="Edit sample"

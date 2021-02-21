@@ -1,0 +1,153 @@
+<?php
+/**
+ * @package     Joomla.Administrator
+ * @subpackage  {{prefix_component}}
+ *
+ * @copyright   {{copyright}}
+ * @license     {{license}}
+ */
+
+namespace {{namespace}}\Administrator\View\Sample;
+
+\defined('_JEXEC') or die('Restricted Direct Access!');
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\View\GenericDataException;
+use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
+use Joomla\CMS\Toolbar\ToolbarHelper;
+use {{namespace}}\Administrator\Helper\{{component_capitalize}}Helper;
+
+class HtmlView extends BaseHtmlView
+{
+	/**
+	 * The \JForm object
+	 *
+	 * @var  	\JForm
+	 *
+	 * @since   {{version}}
+	 */
+	protected $form;
+
+	/**
+	 * The active item
+	 *
+	 * @var  	object
+	 *
+	 * @since   {{version}}
+	 */
+	protected $item;
+
+	/**
+	 * The model state
+	 *
+	 * @var  	\JObject
+	 *
+	 * @since   {{version}}
+	 */
+	protected $state;
+
+	/**
+	 * Display the view
+	 *
+	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
+	 *
+	 * @return  mixed  A string if successful, otherwise an Error object.
+	 *
+	 * @since   {{version}}
+	 */
+	public function display($tpl = null)
+	{
+		// Initialize the variables.
+		$this->form  = $this->get('Form');
+		$this->item  = $this->get('Item');
+		$this->state = $this->get('State');
+
+		// Check for errors.
+		if ((count($errors = $this->get('Errors'))))
+		{
+			throw new GenericDataException(implode("\n", $errors), 500);
+		}
+
+		$this->addToolbar();
+
+		return parent::display($tpl);
+	}
+
+	/**
+	 * Add the page title and toolbar.
+	 *
+	 * @return  void
+	 *
+	 * @since   {{version}}
+	 */
+	protected function addToolbar()
+	{
+		$app = Factory::getApplication();
+		$app->getInput()->set('hidemainmenu', true);
+
+		$user       = $app->getIdentity();
+		$userId     = $user->get('id');
+		$isNew      = ($this->item->id === 0);
+		$checkedOut = !(is_null($this->item->checked_out) || $this->item->checked_out == $userId);
+
+		// Since we don't track these assets at the item level, use the category id.
+		$canDo = {{component_capitalize}}Helper::getActions('{{prefix_component}}');
+
+		ToolbarHelper::title($isNew ? Text::_('{{prefix_component_uppercase}}_SAMPLE_NEW') : Text::_('{{prefix_component_uppercase}}_SAMPLE_EDIT'), 'book edit-sample');
+
+		// Build the actions for new and existing records.
+		if ($isNew)
+		{
+			// For new records, check the create permission.
+			if ($isNew)
+			{
+				ToolbarHelper::apply('sample.apply');
+
+				ToolbarHelper::saveGroup(
+					[
+						['save', 'sample.save'],
+						['save2new', 'sample.save2new']
+					],
+					'btn-success'
+				);
+			}
+
+			ToolbarHelper::cancel('sample.cancel');
+		}
+		else
+		{
+			// Since it's an existing record, check the edit permission, or fall back to edit own if the owner.
+			$itemEditable = $canDo->get('core.edit') || ($canDo->get('core.edit.own') && $this->item->created_by === $userId);
+
+			$toolbarButtons = [];
+
+			// Can't save the record if it's checked out and editable
+			if (!$checkedOut && $itemEditable)
+			{
+				ToolbarHelper::apply('sample.apply');
+
+				$toolbarButtons[] = ['save', 'sample.save'];
+
+				// We can save this record, but check the create permission to see if we can return to make a new one.
+				if ($canDo->get('core.create'))
+				{
+					$toolbarButtons[] = ['save2new', 'sample.save2new'];
+				}
+			}
+
+			// If checked out, we can still save
+			if ($canDo->get('core.create'))
+			{
+				$toolbarButtons[] = ['save2copy', 'sample.save2copy'];
+			}
+
+			ToolbarHelper::saveGroup(
+				$toolbarButtons,
+				'btn-success'
+			);
+
+			ToolbarHelper::cancel('sample.cancel', 'JTOOLBAR_CLOSE');
+		}
+	}
+}

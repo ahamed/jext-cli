@@ -1,0 +1,19 @@
+<?php
+/**
+ * @package     Joomla.Administrator
+ * @subpackage  {{prefix_component}}
+ *
+ * @copyright   {{copyright}}
+ * @license     {{license}}
+ */
+
+namespace {{namespace}}\Administrator\Helper;
+
+use Joomla\CMS\Form\Form;
+use Joomla\CMS\Helper\ContentHelper;
+
+\defined('_JEXEC') or die('Restricted Direct Access!');
+
+class {{component_capitalize}}Helper extends ContentHelper
+{
+}

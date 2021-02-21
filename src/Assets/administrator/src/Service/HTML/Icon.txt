@@ -1,0 +1,55 @@
+<?php
+/**
+ * @package     Joomla.Administrator
+ * @subpackage  {{prefix_component}}
+ *
+ * @copyright   {{copyright}}
+ * @license     {{license}}
+ */
+
+namespace {{namespace}}\Administrator\Service\HTML;
+
+\defined('_JEXEC') or die('Restricted Direct Access!');
+
+use Joomla\CMS\Factory;
+
+/**
+ * Sample class for HTML Service class Icon.
+ *
+ * @since	{{version}}
+ */
+class Icon
+{
+	/**
+	 * Application instance.
+	 *
+	 * @var		CMSApplication
+	 *
+	 * @since	{{version}}
+	 */
+	private $application = null;
+
+	/**
+	 * Constructor function for the Icon class.
+	 *
+	 * @since	{{version}}
+	 */
+	public function __construct()
+	{
+		$application = Factory::getApplication();
+	}
+
+	/**
+	 * Render an icon.
+	 *
+	 * @param	string	$name	The icon name.
+	 *
+	 * @return	string	The HTML string for the icon.
+	 *
+	 * @since	{{version}}
+	 */
+	public function render(string $name, string $modifier = '') : string
+	{
+		return '<span class="icon-' . $name . ($modifier ? ' ' . $modifier : '') . '"></span>';
+	}
+}

@@ -1,0 +1,19 @@
+<?php
+/**
+ * @package     Joomla.Administrator
+ * @subpackage  {{prefix_component}}
+ *
+ * @copyright   {{copyright}}
+ * @license     {{license}}
+ */
+
+\defined('JPATH_PLATFORM') or die('Restricted Direct Access!');
+
+/**
+ * Helper class for the component.
+ *
+ * @since	{{version}}
+ */
+class {{component_capitalize}}Helper extends {{namespace}}\Administrator\Helper\{{component_capitalize}}Helper
+{
+}

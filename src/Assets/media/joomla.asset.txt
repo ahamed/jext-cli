@@ -1,0 +1,23 @@
+{
+	"$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
+	"name": "{{prefix_component}}",
+	"version": "{{version}}",
+	"description": "{{description}}",
+	"license": "{{license}}",
+	"assets": [
+		{
+			"name": "{{prefix_component}}.icons",
+			"type": "script",
+			"uri": "{{prefix_component}}/icons.js",
+			"dependencies": ["core"],
+			"attributes": {
+				"defer": true
+			}
+		},
+		{
+			"name": "{{prefix_component}}.icons",
+			"type": "style",
+			"uri": "{{prefix_component}}/icons.css"
+		}
+	]
+}
