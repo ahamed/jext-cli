@@ -15,11 +15,11 @@ use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 \defined('_JEXEC') or die('Restricted Direct Access!');
 
 /**
- * Controller class for the samples view, extends AdminController.
+ * Controller class for the notes view, extends AdminController.
  *
  * @since	{{version}}
  */
-class SamplesController extends AdminController
+class NotesController extends AdminController
 {
 	/**
 	 * Constructor.
@@ -49,7 +49,7 @@ class SamplesController extends AdminController
 	 *
 	 * @since   {{version}}
 	 */
-	public function getModel($name = 'Sample', $prefix = 'Administrator', $config = array('ignore_request' => true))
+	public function getModel($name = 'Note', $prefix = 'Administrator', $config = array('ignore_request' => true))
 	{
 		return parent::getModel($name, $prefix, $config);
 	}

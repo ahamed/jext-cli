@@ -192,7 +192,7 @@ _________   _______              _________         _______    _         ________
 		if ($confirmation === 'yes')
 		{
 			Printer::println(Printer::getColorizeMessage("Generating the component metadata...", 'purple'));
-			\file_put_contents($this->workingDirectory . '/component.json', \json_encode($this->meta, JSON_UNESCAPED_SLASHES));
+			\file_put_contents($this->workingDirectory . '/jext.json', \json_encode($this->meta, JSON_UNESCAPED_SLASHES));
 			Printer::println(Printer::getColorizeMessage("Metadata generation completed.", 'green'));
 		}
 		else

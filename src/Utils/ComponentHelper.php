@@ -91,6 +91,9 @@ class ComponentHelper
 		$capitalizeName = self::getModifiedName($name, 'capitalize');
 		$uppercase = self::getModifiedName($name, 'uppercase');
 		$prefixedUppercase = self::getModifiedName($name, 'prefix-upper');
+		$year = (new \DateTime)->format('Y');
+		$credit = '<div class="jext-cli-footnote" style="min-height: 80px;background: #ffffff;margin-top: 20px;display: flex;flex-direction: column;justify-content: center;align-items: center;border-radius: 10px;box-shadow: 1px 1px 2px 0px #2222225c;font-family: \'helvetica\', sans-serif;font-size: 14px;color: #757575;"><p style="margin: 0;">Powered by <a href="https://github.com/ahamed/jext-cli" style="text-decoration: none;"><code>JEXT-CLI</code></a>, Developed by <a href="https://ahamed.github.io" style="text-decoration: none;">Sajeeb Ahamed</a></p><a href="https://ahamed.github.io" style="text-decoration: none;"><small>&copy; ' . $year . ', Sajeeb Ahamed</small></a></div>';
+
 
 		$content = preg_replace("@{{prefix_component}}@", $prefixedName, $content);
 		$content = preg_replace("@{{prefix_component_uppercase}}@", $prefixedUppercase, $content);
@@ -106,6 +109,8 @@ class ComponentHelper
 		$content = preg_replace("@{{license}}@", $license, $content);
 		$content = preg_replace("@{{copyright}}@", $copyright, $content);
 		$content = preg_replace("@{{description}}@", $description, $content);
+		$content = preg_replace("@{{year}}@", $year, $content);
+		$content = preg_replace("@{{credit}}@", $credit, $content);
 
 		return $content;
 	}

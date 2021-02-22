@@ -1,0 +1,38 @@
+<?php
+/**
+ * @package     Joomla.Administrator
+ * @subpackage  {{prefix_component}}
+ *
+ * @copyright   {{copyright}}
+ * @license     {{license}}
+ */
+
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Uri\Uri;
+use {{namespace}}\Administrator\Helper\Icomoon;
+
+$icons = Icomoon::getIcons();
+
+$wa = $this->document->getWebAssetManager();
+$wa->useScript('{{prefix_component}}.icons');
+$wa->useStyle('{{prefix_component}}.icons');
+
+$this->document->addScriptOptions('config', ['base' => rtrim(Uri::root(), '/')]);
+
+?>
+
+<div id="{{component}}-icomoon-container">
+	<div class="{{component}}-icons-searchbar">
+		<input type="text" class="form-control {{component}}-icon-search" placeholder="Search icons">
+		<?php echo HTMLHelper::_('icon.render', 'search', 'placeholder-icon'); ?>
+		<?php echo HTMLHelper::_('icon.render', 'times', 'remove-icon'); ?>
+	</div>
+	<div class="{{component}}-message-bar">
+		<h2 class="{{component}}-total-icons"></h2>
+		<div class="{{component}}-search-tokens">
+		</div>
+	</div>
+	<div class="{{component}}-icomoon-icons"></div>
+
+	{{credit}}
+</div>

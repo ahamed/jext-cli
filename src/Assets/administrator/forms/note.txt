@@ -35,6 +35,15 @@
 		/>
 
 		<field
+			name="description"
+			type="editor"
+			filter="JComponentHelper::filterText"
+			buttons="true"
+			label="{{prefix_component_uppercase}}_NOTE_DESCRIPTION"
+			description="{{prefix_component_uppercase}}_NOTE_DESCRIPTION_DESC"
+		/>
+
+		<field
 			name="published"
 			type="list"
 			label="JSTATUS"

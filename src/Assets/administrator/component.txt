@@ -41,7 +41,9 @@
 				XML and be parsed by the installer
 			-->
 			<menu link="option={{prefix_component}}"
-				view="icomoon" img="class:basket" alt="{{component_uppercase}}/Icomoon">{{prefix_component_uppercase}}_ICOMOON</menu>
+				view="notes" img="class:basket" alt="{{component_uppercase}}/Notes">{{prefix_component_uppercase}}_NOTES</menu>
+			<menu link="option={{prefix_component}}&amp;view=icomoon"
+				view="icomoon" img="class:code" alt="{{component_uppercase}}/Icomoon">{{prefix_component_uppercase}}_ICOMOON</menu>
 		</submenu>
 		<files folder="admin">
 			<filename>access.xml</filename>

@@ -14,7 +14,7 @@ namespace {{namespace}}\Administrator\Service\HTML;
 use Joomla\CMS\Factory;
 
 /**
- * Sample class for HTML Service class Icon.
+ * Note class for HTML Service class Icon.
  *
  * @since	{{version}}
  */

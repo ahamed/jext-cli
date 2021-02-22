@@ -18,14 +18,14 @@ use Joomla\Utilities\ArrayHelper;
 \defined('_JEXEC') or die('Restricted Direct Access!');
 
 /**
- * Controller class for the sample view extends FormController
+ * Controller class for the note view extends FormController
  *
  * @since	{{version}}
  */
-class SampleController extends FormController
+class NoteController extends FormController
 {
 	/**
-	 * Constructor function of the SampleController.
+	 * Constructor function of the NoteController.
 	 *
 	 * @param   array                $config   An optional associative array of configuration settings.
 	 * Recognized key values include 'name', 'default_task', 'model_path', and
@@ -70,7 +70,7 @@ class SampleController extends FormController
 	{
 		$user = $this->app->getIdentity();
 
-		return $user->authorise('core.create', '{{prefix_component}}.sample');
+		return $user->authorise('core.create', '{{prefix_component}}.note');
 	}
 
 	/**
@@ -95,13 +95,13 @@ class SampleController extends FormController
 		}
 
 		// Check edit on the record asset (explicit or inherited)
-		if ($user->authorise('core.edit', '{{prefix_component}}.sample.' . $recordId))
+		if ($user->authorise('core.edit', '{{prefix_component}}.note.' . $recordId))
 		{
 			return true;
 		}
 
 		// Check edit own on the record asset (explicit or inherited)
-		if ($user->authorise('core.edit.own', '{{prefix_component}}.sample.' . $recordId))
+		if ($user->authorise('core.edit.own', '{{prefix_component}}.note.' . $recordId))
 		{
 			// Existing record already has an owner, get it
 			$record = $this->getModel()->getItem($recordId);

@@ -18,11 +18,11 @@ use Joomla\CMS\Table\Table;
 use Joomla\Database\DatabaseDriver;
 
 /**
- * Sample Table class.
+ * Note Table class.
  *
  * @since  {{version}}
  */
-class SampleTable extends Table
+class NoteTable extends Table
 {
 	/**
 	 * Constructor
@@ -33,7 +33,7 @@ class SampleTable extends Table
 	 */
 	public function __construct(DatabaseDriver $db)
 	{
-		parent::__construct('#__{{component}}_samples', 'id', $db);
+		parent::__construct('#__{{component}}_notes', 'id', $db);
 	}
 
 	/**
@@ -100,7 +100,7 @@ class SampleTable extends Table
 		}
 
 		// Verify that the alias is unique
-		$table = Table::getInstance('SampleTable', __NAMESPACE__ . '\\', array('dbo' => $this->getDbo()));
+		$table = Table::getInstance('NoteTable', __NAMESPACE__ . '\\', array('dbo' => $this->getDbo()));
 		$table->load(array('alias' => $this->alias));
 
 		if ($table->load(array('alias' => $this->alias)) && ($table->id !== $this->id || $this->id === 0))

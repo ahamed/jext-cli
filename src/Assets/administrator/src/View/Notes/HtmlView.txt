@@ -7,7 +7,7 @@
  * @license     {{license}}
  */
 
-namespace {{namespace}}\Administrator\View\Samples;
+namespace {{namespace}}\Administrator\View\Notes;
 
 \defined('_JEXEC') or die('Restricted Direct Access!');
 
@@ -113,11 +113,11 @@ class HtmlView extends BaseHtmlView
 		// Get the toolbar object instance
 		$toolbar = Toolbar::getInstance('toolbar');
 
-		ToolbarHelper::title(Text::_('{{prefix_component_uppercase}}_TOOLBAR_LABEL'), 'book');
+		ToolbarHelper::title(Text::_('{{prefix_component_uppercase}}_NOTES_TOOLBAR_LABEL'), 'book');
 
 		if ($canDo->get('core.create'))
 		{
-			$toolbar->addNew('sample.add');
+			$toolbar->addNew('note.add');
 		}
 
 		if ($canDo->get('core.edit.state'))
@@ -131,25 +131,25 @@ class HtmlView extends BaseHtmlView
 
 			$childBar = $dropdown->getChildToolbar();
 
-			$childBar->publish('samples.publish')->listCheck(true);
+			$childBar->publish('notes.publish')->listCheck(true);
 
-			$childBar->unpublish('samples.unpublish')->listCheck(true);
+			$childBar->unpublish('notes.unpublish')->listCheck(true);
 
-			$childBar->archive('samples.archive')->listCheck(true);
+			$childBar->archive('notes.archive')->listCheck(true);
 
 			if ($user->authorise('core.admin'))
 			{
-				$childBar->checkin('samples.checkin')->listCheck(true);
+				$childBar->checkin('notes.checkin')->listCheck(true);
 			}
 
 			if ($this->state->get('filter.published') !== -2)
 			{
-				$childBar->trash('samples.trash')->listCheck(true);
+				$childBar->trash('notes.trash')->listCheck(true);
 			}
 
 			if ($this->state->get('filter.published') === -2 && $canDo->get('core.delete'))
 			{
-				$childBar->delete('samples.delete')
+				$childBar->delete('notes.delete')
 					->text('JTOOLBAR_EMPTY_TRASH')
 					->message('JGLOBAL_CONFIRM_DELETE')
 					->listCheck(true);

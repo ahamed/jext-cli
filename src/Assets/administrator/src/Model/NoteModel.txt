@@ -22,7 +22,7 @@ use Joomla\String\StringHelper;
  *
  * @since	{{version}}
  */
-class SampleModel extends AdminModel
+class NoteModel extends AdminModel
 {
 	/**
 	 * The type alias for this content type.
@@ -31,7 +31,7 @@ class SampleModel extends AdminModel
 	 *
 	 * @since  {{version}}
 	 */
-	public $typeAlias = '{{prefix_component}}.sample';
+	public $typeAlias = '{{prefix_component}}.note';
 
 	/**
 	 * Name of the form
@@ -40,7 +40,7 @@ class SampleModel extends AdminModel
 	 *
 	 * @since  {{version}}
 	 */
-	protected $formName = 'sample';
+	protected $formName = 'note';
 
 	/**
 	 * Method to test whether a record can be deleted.
@@ -58,7 +58,7 @@ class SampleModel extends AdminModel
 			return false;
 		}
 
-		return Factory::getApplication()->getIdentity()->authorise('core.delete', '{{prefix_component}}.sample.' . (int) $record->id);
+		return Factory::getApplication()->getIdentity()->authorise('core.delete', '{{prefix_component}}.note.' . (int) $record->id);
 	}
 
 	/**
@@ -75,7 +75,7 @@ class SampleModel extends AdminModel
 		// Check against the category.
 		if (!empty($record->id))
 		{
-			return Factory::getApplication()->getIdentity()->authorise('core.edit.state', '{{prefix_component}}.sample.' . (int) $record->id);
+			return Factory::getApplication()->getIdentity()->authorise('core.edit.state', '{{prefix_component}}.note.' . (int) $record->id);
 		}
 
 		// Default to component settings if category not known.
@@ -99,7 +99,7 @@ class SampleModel extends AdminModel
 			return false;
 		}
 
-		return Factory::getApplication()->getIdentity()->authorise('core.edit', '{{prefix_component}}.sample.' . $data[$key]);
+		return Factory::getApplication()->getIdentity()->authorise('core.edit', '{{prefix_component}}.note.' . $data[$key]);
 	}
 
 	/**
@@ -137,20 +137,20 @@ class SampleModel extends AdminModel
 		$app = Factory::getApplication();
 
 		// Check the session for previously entered form data.
-		$data = $app->getUserState('{{prefix_component}}.edit.sample.data', array());
+		$data = $app->getUserState('{{prefix_component}}.edit.note.data', array());
 
 		if (empty($data))
 		{
 			$data = $this->getItem();
 
 			// Prime some default values.
-			if ($this->getState('sample.id') === 0)
+			if ($this->getState('note.id') === 0)
 			{
-				$data->set('id', $app->input->get('id', $app->getUserState('{{prefix_component}}.samples.filter.id'), 'int'));
+				$data->set('id', $app->input->get('id', $app->getUserState('{{prefix_component}}.notes.filter.id'), 'int'));
 			}
 		}
 
-		$this->preprocessData('{{prefix_component}}.sample', $data);
+		$this->preprocessData('{{prefix_component}}.note', $data);
 
 		return $data;
 	}
@@ -176,7 +176,7 @@ class SampleModel extends AdminModel
 
 			if ($data['title'] === $origTable->title)
 			{
-				list($title, $alias) = $this->generateUniqueTitleAlias($data['alias'], $data['name']);
+				list($title, $alias) = $this->generateUniqueTitleAlias($data['alias'], $data['title']);
 				$data['title'] = $title;
 				$data['alias'] = $alias;
 			}

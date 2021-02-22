@@ -7,7 +7,7 @@
  * @license     {{license}}
  */
 
-namespace {{namespace}}\Administrator\View\Sample;
+namespace {{namespace}}\Administrator\View\Note;
 
 \defined('_JEXEC') or die('Restricted Direct Access!');
 
@@ -94,7 +94,7 @@ class HtmlView extends BaseHtmlView
 		// Since we don't track these assets at the item level, use the category id.
 		$canDo = {{component_capitalize}}Helper::getActions('{{prefix_component}}');
 
-		ToolbarHelper::title($isNew ? Text::_('{{prefix_component_uppercase}}_SAMPLE_NEW') : Text::_('{{prefix_component_uppercase}}_SAMPLE_EDIT'), 'book edit-sample');
+		ToolbarHelper::title($isNew ? Text::_('{{prefix_component_uppercase}}_NOTE_NEW') : Text::_('{{prefix_component_uppercase}}_NOTE_EDIT'), 'book edit-note');
 
 		// Build the actions for new and existing records.
 		if ($isNew)
@@ -102,18 +102,18 @@ class HtmlView extends BaseHtmlView
 			// For new records, check the create permission.
 			if ($isNew)
 			{
-				ToolbarHelper::apply('sample.apply');
+				ToolbarHelper::apply('note.apply');
 
 				ToolbarHelper::saveGroup(
 					[
-						['save', 'sample.save'],
-						['save2new', 'sample.save2new']
+						['save', 'note.save'],
+						['save2new', 'note.save2new']
 					],
 					'btn-success'
 				);
 			}
 
-			ToolbarHelper::cancel('sample.cancel');
+			ToolbarHelper::cancel('note.cancel');
 		}
 		else
 		{
@@ -125,21 +125,21 @@ class HtmlView extends BaseHtmlView
 			// Can't save the record if it's checked out and editable
 			if (!$checkedOut && $itemEditable)
 			{
-				ToolbarHelper::apply('sample.apply');
+				ToolbarHelper::apply('note.apply');
 
-				$toolbarButtons[] = ['save', 'sample.save'];
+				$toolbarButtons[] = ['save', 'note.save'];
 
 				// We can save this record, but check the create permission to see if we can return to make a new one.
 				if ($canDo->get('core.create'))
 				{
-					$toolbarButtons[] = ['save2new', 'sample.save2new'];
+					$toolbarButtons[] = ['save2new', 'note.save2new'];
 				}
 			}
 
 			// If checked out, we can still save
 			if ($canDo->get('core.create'))
 			{
-				$toolbarButtons[] = ['save2copy', 'sample.save2copy'];
+				$toolbarButtons[] = ['save2copy', 'note.save2copy'];
 			}
 
 			ToolbarHelper::saveGroup(
@@ -147,7 +147,7 @@ class HtmlView extends BaseHtmlView
 				'btn-success'
 			);
 
-			ToolbarHelper::cancel('sample.cancel', 'JTOOLBAR_CLOSE');
+			ToolbarHelper::cancel('note.cancel', 'JTOOLBAR_CLOSE');
 		}
 	}
 }

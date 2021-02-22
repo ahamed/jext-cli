@@ -54,11 +54,11 @@ class SourceParser
 	public function __construct()
 	{
 		$workingDirectory = exec('pwd');
-		$metaPath = $workingDirectory . '/component.json';
+		$metaPath = $workingDirectory . '/jext.json';
 
 		if (!\file_exists($metaPath))
 		{
-			throw new \Exception(sprintf('The component.json file is missing!'));
+			throw new \Exception(sprintf('The jext.json file is missing!'));
 		}
 
 		$this->meta = \json_decode(\file_get_contents($metaPath), true);

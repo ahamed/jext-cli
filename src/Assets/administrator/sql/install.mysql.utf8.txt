@@ -1,8 +1,9 @@
-CREATE TABLE IF NOT EXISTS `#__{{component}}_samples` (
+CREATE TABLE IF NOT EXISTS `#__{{component}}_notes` (
 	`id` bigint NOT NULL AUTO_INCREMENT,
 	`asset_id` bigint NOT NULL DEFAULT 0,
 	`title` varchar(255) NOT NULL DEFAULT '',
 	`alias` varchar(300) NOT NULL DEFAULT '',
+	`description` text,
 	`published` tinyint(1) NOT NULL DEFAULT 0,
 	`checked_out` int unsigned NOT NULL DEFAULT 0,
 	`checked_out_time` datetime,

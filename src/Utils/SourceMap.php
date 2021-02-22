@@ -46,14 +46,14 @@ final class SourceMap
 		],
 		[
 			'directory' => '/forms',
-			'src' => 'sample.txt',
-			'dest' => 'sample.xml',
+			'src' => 'note.txt',
+			'dest' => 'note.xml',
 			'package' => 'component',
 			'client' => 'administrator'
 		],
 		[ 	'directory' => '/forms',
-			'src' => 'filter_samples.txt',
-			'dest' => 'filter_samples.xml',
+			'src' => 'filter_notes.txt',
+			'dest' => 'filter_notes.xml',
 			'package' => 'component',
 			'client' => 'administrator'
 		],
@@ -75,13 +75,19 @@ final class SourceMap
 			'package' => 'component',
 			'client' => 'administrator'
 		],
-		[ 	'directory' => '/tmpl/sample',
+		[ 	'directory' => '/tmpl/note',
 			'src' => 'edit.txt',
 			'dest' => 'edit.php',
 			'package' => 'component',
 			'client' => 'administrator'
 		],
-		[ 	'directory' => '/tmpl/samples',
+		[ 	'directory' => '/tmpl/notes',
+			'src' => 'default.txt',
+			'dest' => 'default.php',
+			'package' => 'component',
+			'client' => 'administrator'
+		],
+		[ 	'directory' => '/tmpl/icomoon',
 			'src' => 'default.txt',
 			'dest' => 'default.php',
 			'package' => 'component',
@@ -100,14 +106,14 @@ final class SourceMap
 			'client' => 'administrator'
 		],
 		[ 	'directory' => '/src/Controller',
-			'src' => 'SampleController.txt',
-			'dest' => 'SampleController.php',
+			'src' => 'NoteController.txt',
+			'dest' => 'NoteController.php',
 			'package' => 'component',
 			'client' => 'administrator'
 		],
 		[ 	'directory' => '/src/Controller',
-			'src' => 'SamplesController.txt',
-			'dest' => 'SamplesController.php',
+			'src' => 'NotesController.txt',
+			'dest' => 'NotesController.php',
 			'package' => 'component',
 			'client' => 'administrator'
 		],
@@ -130,14 +136,14 @@ final class SourceMap
 			'client' => 'administrator'
 		],
 		[ 	'directory' => '/src/Model',
-			'src' => 'SampleModel.txt',
-			'dest' => 'SampleModel.php',
+			'src' => 'NoteModel.txt',
+			'dest' => 'NoteModel.php',
 			'package' => 'component',
 			'client' => 'administrator'
 		],
 		[ 	'directory' => '/src/Model',
-			'src' => 'SamplesModel.txt',
-			'dest' => 'SamplesModel.php',
+			'src' => 'NotesModel.txt',
+			'dest' => 'NotesModel.php',
 			'package' => 'component',
 			'client' => 'administrator'
 		],
@@ -148,8 +154,8 @@ final class SourceMap
 			'client' => 'administrator'
 		],
 		[ 	'directory' => '/src/Table',
-			'src' => 'SampleTable.txt',
-			'dest' => 'SampleTable.php',
+			'src' => 'NoteTable.txt',
+			'dest' => 'NoteTable.php',
 			'package' => 'component',
 			'client' => 'administrator'
 		],
@@ -159,13 +165,13 @@ final class SourceMap
 			'package' => 'component',
 			'client' => 'administrator'
 		],
-		[ 	'directory' => '/src/View/Sample',
+		[ 	'directory' => '/src/View/Note',
 			'src' => 'HtmlView.txt',
 			'dest' => 'HtmlView.php',
 			'package' => 'component',
 			'client' => 'administrator'
 		],
-		[ 	'directory' => '/src/View/Samples',
+		[ 	'directory' => '/src/View/notes',
 			'src' => 'HtmlView.txt',
 			'dest' => 'HtmlView.php',
 			'package' => 'component',
