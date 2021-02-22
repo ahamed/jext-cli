@@ -1,0 +1,222 @@
+<?php
+/**
+ * @package     Joomla.Site
+ * @subpackage  {{prefix_component}}
+ *
+ * @copyright   {{copyright}}
+ * @license     {{license}}
+ */
+
+namespace {{namespace}}\Site\Service;
+
+\defined('_JEXEC') or die;
+
+use Joomla\CMS\Application\SiteApplication;
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Component\Router\RouterView;
+use Joomla\CMS\Component\Router\RouterViewConfiguration;
+use Joomla\CMS\Component\Router\Rules\MenuRules;
+use Joomla\CMS\Component\Router\Rules\NomenuRules;
+use Joomla\CMS\Component\Router\Rules\StandardRules;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Menu\AbstractMenu;
+use Joomla\Database\DatabaseInterface;
+
+
+/**
+ * Routing class of {{prefix_component}}
+ *
+ * @since  {{version}}
+ */
+class Router extends RouterView
+{
+	/**
+	 * Flag to remove IDs
+	 *
+	 * @var    boolean
+	 *
+	 * @since  {{version}}
+	 */
+	protected $noIDs = false;
+
+	/**
+	 * The category cache
+	 *
+	 * @var  array
+	 *
+	 * @since  {{version}}
+	 */
+	private $categoryCache = [];
+
+	/**
+	 * The db
+	 *
+	 * @var DatabaseInterface
+	 *
+	 * @since  {{version}}
+	 */
+	private $db;
+
+	/**
+	 * Content Component router constructor
+	 *
+	 * @param   SiteApplication           $app              The application object
+	 * @param   AbstractMenu              $menu             The menu object to work with
+	 */
+	public function __construct(SiteApplication $app, AbstractMenu $menu)
+	{
+		$this->db = Factory::getContainer()->get('DatabaseDriver');
+		$this->queryBuilder = $this->db->getQuery(true);
+
+		$params = ComponentHelper::getParams('{{prefix_component}}');
+		$this->noIDs = (bool) $params->get('sef_ids', 1);
+
+		$notes = new RouterViewConfiguration('notes');
+		$this->registerView($notes);
+		$note = new RouterViewConfiguration('note');
+		$note->setKey('id')->setParent($notes);
+		$this->registerView($note);
+
+		/** Register your other other views here */
+
+		parent::__construct($app, $menu);
+
+		$this->attachRule(new MenuRules($this));
+		$this->attachRule(new StandardRules($this));
+		$this->attachRule(new NomenuRules($this));
+	}
+
+	/**
+	 * Get missing alias from the provided ID.
+	 *
+	 * @param	string		$id		The ID with or without the alias.
+	 * @param	string		$table	The table name.
+	 *
+	 * @return	string		The alias string.
+	 *
+	 * @since	{{version}}
+	 */
+	private function getAlias(string $id, string $table) : string
+	{
+		try
+		{
+			$this->queryBuilder->clear();
+			$this->queryBuilder->select('alias')
+				->from($this->db->quoteName($table))
+				->where($this->db->quoteName('id') . ' = ' . (int) $id);
+			$this->db->setQuery($this->queryBuilder);
+
+			return (string) $this->db->loadResult();
+		}
+		catch (\Exception $e)
+		{
+			echo $e->getMessage();
+
+			return '';
+		}
+	}
+
+	/**
+	 * Get id from the alias.
+	 *
+	 * @param	string		$alias		The alias string.
+	 * @param	string		$table		The table name.
+	 *
+	 * @return	int			The id.
+	 *
+	 * @since	{{version}}
+	 */
+	private function getId(string $alias, string $table) : int
+	{
+		try
+		{
+			$this->queryBuilder->clear();
+			$this->queryBuilder->select('id')
+				->from($this->db->quoteName($table))
+				->where($this->db->quoteName('alias') . ' = ' . $this->db->quote($alias));
+			$this->db->setQuery($this->queryBuilder);
+
+			return (int) $this->db->loadResult();
+		}
+		catch (\Exception $e)
+		{
+			echo $e->getMessage();
+
+			return 0;
+		}
+	}
+
+	/**
+	 * Get the view segment for the common views.
+	 *
+	 * @param	string	$id		The ID with or without alias.
+	 * @param	string	$table	The table name.
+	 *
+	 * @return	array	The segment array.
+	 *
+	 * @since	{{version}}
+	 */
+	private function getViewSegment(string $id, string $table) : array
+	{
+		if (strpos($id, ':') === false)
+		{
+			$id .= ':' . $this->getAlias($id, $table);
+		}
+
+		if ($this->noIDs)
+		{
+			list ($key, $alias) = explode(':', $id, 2);
+
+			return [$key => $alias];
+		}
+
+		return [(int) $id => $id];
+	}
+
+	/**
+	 * get the view ID for the common pattern view.
+	 *
+	 * @param	string	$segment	The segment string.
+	 * @param	string	$table		The table name.
+	 *
+	 * @return	int		The id.
+	 *
+	 * @since	{{version}}
+	 */
+	private function getViewId(string $segment, string $table) : int
+	{
+		return $this->noIDs
+			? $this->getId($segment, $table)
+			: (int) $segment;
+	}
+
+	/**
+	 * Method to get the segment(s) for a note
+	 *
+	 * @param   string  $id     ID of the category to retrieve the segments for
+	 * @param   array   $query  The request that is built right now
+	 *
+	 * @return  array|string  The segments of this item
+	 *
+	 * @since  {{version}}
+	 */
+	public function getNoteSegment($id, $query)
+	{
+		return $this->getViewSegment($id, '#__{{component}}_notes');
+	}
+
+	/**
+	 * Method to get the note Id
+	 *
+	 * @param   string  $segment  Segment of the note to retrieve the ID for
+	 * @param   array   $query    The request that is parsed right now
+	 *
+	 * @return  mixed   The id of this item or false
+	 *
+	 * @since  {{version}}
+	 */
+	public function getNoteId($segment, $query)
+	{
+		return $this->getViewId($segment, '#__{{component}}_notes');
+	}
+}

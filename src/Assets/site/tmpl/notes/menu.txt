@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="{{prefix_component_uppercase}}_NOTES_VIEW_DEFAULT_TITLE" option="{{prefix_component_uppercase}}_NOTES_VIEW_DEFAULT_OPTION">
+		<help
+			key = "JHELP_MENUS_MENU_ITEM_NOTES"
+		/>
+		<message>
+			<![CDATA[{{prefix_component_uppercase}}_NOTES_VIEW_DEFAULT_DESC]]>
+		</message>
+	</layout>
+
+	<!-- Add fields to the parameters object for the layout. -->
+	<fields name="params">
+		<!-- Basic options. -->
+		<fieldset name="basic" label="{{prefix_component_uppercase}}_NOTES_SETTINGS_LABEL">
+			<!-- Basic menu settings here -->
+		</fieldset>
+	</fields>
+</metadata>

@@ -1,0 +1,55 @@
+<?php
+/**
+ * @package     Joomla.Site
+ * @subpackage  {{prefix_component}}
+ *
+ * @copyright   {{copyright}}
+ * @license     {{license}}
+ */
+
+namespace {{namespace}}\Site\Helper;
+
+\defined('_JEXEC') or die('Restricted Direct Access!');
+
+use Joomla\CMS\Helper\RouteHelper as CMSRouteHelper;
+use Joomla\CMS\Language\Multilanguage;
+
+
+/**
+ * Tags Component Route Helper.
+ *
+ * @since  {{version}}
+ */
+class RouteHelper extends CMSRouteHelper
+{
+	/**
+	 * Get note route.
+	 *
+	 * @param	int		$id			The note id.
+	 * @param	string	$alias		The note alias.
+	 * @param	string	$language	The language string.
+	 *
+	 * @return	string	The router link.
+	 *
+	 * @since	{{version}}
+	 */
+	public static function getNoteRoute(int $id, string $alias, string $language = '*') : string
+	{
+		$link = '';
+
+		if ($id < 1)
+		{
+			return $link;
+		}
+
+		// Create the link
+		$link = 'index.php?option={{prefix_component}}&view=note&id=' . $id . ':' . $alias;
+
+		if ($language !== '*' && Multilanguage::isEnabled())
+		{
+			$link .= '&lang=' . $language;
+		}
+
+		return $link;
+	}
+}

@@ -44,7 +44,7 @@ class DisplayController extends BaseController
 	{
 		$view   = $this->input->get('view', 'notes');
 		$layout = $this->input->get('layout', 'default');
-		$id     = $this->input->getInt('id');	
+		$id     = $this->input->getInt('id', 0);	
 
 		// Check for edit form.
 		if ($view === 'note' && $layout === 'edit' && !$this->checkEditId('{{prefix_component}}.edit.note', $id))

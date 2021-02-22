@@ -73,6 +73,12 @@ if ($saveOrder && !empty($this->items))
 									<?php echo HTMLHelper::_('searchtools.sort', 'JGLOBAL_TITLE', 'a.title', $listDirn, $listOrder); ?>
 								</th>
 								<th scope="col" class="w-10 d-none d-md-table-cell">
+									<?php echo HTMLHelper::_('searchtools.sort',  'JAUTHOR', 'a.created_by', $listDirn, $listOrder); ?>
+								</th>
+								<th scope="col" class="w-10 d-none d-md-table-cell">
+									<?php echo HTMLHelper::_('searchtools.sort',  'JGLOBAL_FIELD_CREATED_LABEL', 'a.created', $listDirn, $listOrder); ?>
+								</th>
+								<th scope="col" class="w-10 d-none d-md-table-cell">
 									<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ACCESS', 'a.access', $listDirn, $listOrder); ?>
 								</th>
 								<?php if (Multilanguage::isEnabled()) : ?>
@@ -126,6 +132,18 @@ if ($saveOrder && !empty($this->items))
 											<?php endif; ?>
 										</div>
 									</th>
+									<td class="small d-none d-md-table-cell">
+										<?php if ((int) $item->created_by !== 0) : ?>
+											<a href="<?php echo Route::_('index.php?option=com_users&task=user.edit&id=' . (int) $item->created_by); ?>">
+												<?php echo $this->escape($item->author_name); ?>
+											</a>
+										<?php else : ?>
+											<?php echo Text::_('JNONE'); ?>
+										<?php endif; ?>
+									</td>
+									<td class="small d-none d-md-table-cell">
+										<?php echo HTMLHelper::_('date', $item->created, 'Y-m-d'); ?>
+									</td>
 									<td class="small d-none d-md-table-cell">
 										<?php echo $this->escape($item->access_level); ?>
 									</td>

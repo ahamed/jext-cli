@@ -1,0 +1,22 @@
+<?php
+/**
+ * @package     Joomla.Site
+ * @subpackage  {{prefix_component}}
+ *
+ * @copyright   {{copyright}}
+ * @license     {{license}}
+ */
+
+defined('_JEXEC') or die('Restricted Direct Access!');
+
+$wa = $this->document->getWebAssetManager();
+$wa->useStyle('{{prefix_component}}.notes');
+
+?>
+
+<div class="com-{{component}} view-note {{component}}-note-details <?php echo $this->pageclass_sfx; ?>">
+	<h2 class="{{component}}-note-title"><?php echo $this->item->title; ?></h2>
+	<div class="{{component}}-note-description"><?php echo $this->item->description; ?></div>
+
+	{{credit}}
+</div>

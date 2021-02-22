@@ -12,13 +12,11 @@ namespace {{namespace}}\Administrator\Extension;
 
 \defined('JPATH_PLATFORM') or die('Platform not defined!');
 
+use Joomla\CMS\Component\Router\RouterServiceInterface;
+use Joomla\CMS\Component\Router\RouterServiceTrait;
 use Joomla\CMS\Extension\BootableExtensionInterface;
 use Joomla\CMS\Extension\MVCComponent;
-use Joomla\CMS\Factory;
-use Joomla\CMS\Fields\FieldsServiceInterface;
-use Joomla\CMS\Form\Form;
 use Joomla\CMS\HTML\HTMLRegistryAwareTrait;
-use Joomla\CMS\Language\Text;
 use {{namespace}}\Administrator\Service\HTML\Icon;
 use Psr\Container\ContainerInterface;
 
@@ -27,9 +25,11 @@ use Psr\Container\ContainerInterface;
  *
  * @since  {{version}}
  */
-class {{component_capitalize}}Component extends MVCComponent implements BootableExtensionInterface
+class {{component_capitalize}}Component extends MVCComponent implements
+	BootableExtensionInterface, RouterServiceInterface
 {
 	use HTMLRegistryAwareTrait;
+	use RouterServiceTrait;
 
 	/**
 	 * Booting the extension. This is the function to set up the environment of the extension like
@@ -47,6 +47,6 @@ class {{component_capitalize}}Component extends MVCComponent implements Bootable
 	public function boot(ContainerInterface $container)
 	{
 		// Registering your HTML services at the booting time of the extension.
-		$this->getRegistry()->register('icon', new Icon);
+		$this->getRegistry()->register('icomoon', new Icon);
 	}
 }

@@ -227,12 +227,10 @@ _________   _______              _________         _______    _         ________
 				continue;
 			}
 
-			$src = $cliRoot . $map['client'] . rtrim($map['directory'], '/') . '/' . $map['src'];
 			$destDirectory = $componentRoot . '/'
 				. ($map['client'] === 'administrator' ? 'administrator/components/' : 'components/')
 				. ComponentHelper::getModifiedName($this->name, 'prefix')
 				. rtrim($map['directory'], '/');
-
 			$destDirectory = rtrim($destDirectory, '/');
 
 			if (!\file_exists($destDirectory))
@@ -240,6 +238,12 @@ _________   _______              _________         _______    _         ________
 				mkdir($destDirectory, 0755, true);
 			}
 
+			if (empty($map['src']) || empty($map['src']))
+			{
+				continue;
+			}
+
+			$src = $cliRoot . $map['client'] . rtrim($map['directory'], '/') . '/' . $map['src'];
 			$dest = ComponentHelper::parseContent($destDirectory . '/' . $map['dest'], $this->meta);
 			$parser->src($src)->dest($dest)->parse();
 		}
@@ -268,11 +272,9 @@ _________   _______              _________         _______    _         ________
 				continue;
 			}
 
-			$src = $cliRoot . $map['client'] . rtrim($map['directory'], '/') . '/' . $map['src'];
 			$destDirectory = $componentRoot . '/'
 				. ($map['client'] === 'administrator' ? 'administrator/language/en-GB' : 'language/en-GB')
 				. rtrim($map['directory'], '/');
-
 			$destDirectory = rtrim($destDirectory, '/');
 
 			if (!\file_exists($destDirectory))
@@ -280,6 +282,12 @@ _________   _______              _________         _______    _         ________
 				mkdir($destDirectory, 0755, true);
 			}
 
+			if (empty($map['src']) || empty($map['src']))
+			{
+				continue;
+			}
+
+			$src = $cliRoot . $map['client'] . rtrim($map['directory'], '/') . '/' . $map['src'];
 			$dest = ComponentHelper::parseContent($destDirectory . '/' . $map['dest'], $this->meta);
 			$parser->src($src)->dest($dest)->parse();
 		}
@@ -308,7 +316,6 @@ _________   _______              _________         _______    _         ________
 				continue;
 			}
 
-			$src = $cliRoot . rtrim($map['directory'], '/') . '/' . $map['src'];
 			$destDirectory = $componentRoot . '/media/'
 				. ComponentHelper::getModifiedName($this->name, 'prefix')
 				. rtrim($map['directory'], '/');
@@ -320,6 +327,12 @@ _________   _______              _________         _______    _         ________
 				mkdir($destDirectory, 0755, true);
 			}
 
+			if (empty($map['src']) || empty($map['src']))
+			{
+				continue;
+			}
+
+			$src = $cliRoot . rtrim($map['directory'], '/') . '/' . $map['src'];
 			$dest = ComponentHelper::parseContent($destDirectory . '/' . $map['dest'], $this->meta);
 			$parser->src($src)->dest($dest)->parse();
 		}

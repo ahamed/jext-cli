@@ -18,6 +18,11 @@
 			"name": "{{prefix_component}}.icons",
 			"type": "style",
 			"uri": "{{prefix_component}}/icons.css"
+		},
+		{
+			"name": "{{prefix_component}}.notes",
+			"type": "style",
+			"uri": "{{prefix_component}}/notes.css"
 		}
 	]
 }

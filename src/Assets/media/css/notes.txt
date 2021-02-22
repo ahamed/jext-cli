@@ -1,0 +1,44 @@
+body {
+	background: aliceblue !important;
+}
+
+.{{component}}-notes {
+	max-width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 14px;
+}
+
+.{{component}}-notes .{{component}}-notes-item .{{component}}-note-title {
+	font-size: 20px;
+	margin-bottom: 20px;
+	border-bottom: 1px solid #f1f1f1;
+	padding-bottom: 10px;
+}
+
+.{{component}}-notes .{{component}}-notes-item .{{component}}-note-link {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+.{{component}}-notes .{{component}}-notes-item {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	min-height: 160px;
+	background: #fff;
+	margin-bottom: 20px;
+	border-radius: 10px;
+	padding: 20px;
+	box-shadow: 1px 1px 1px 0 #22222247;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.{{component}}-notes .{{component}}-notes-item:hover {
+	box-shadow: 1px 1px 5px 2px #22222247;
+}

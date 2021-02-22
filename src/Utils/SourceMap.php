@@ -123,6 +123,12 @@ final class SourceMap
 			'package' => 'component',
 			'client' => 'administrator'
 		],
+		[ 	'directory' => '/src/Field',
+			'src' => '',
+			'dest' => '',
+			'package' => 'component',
+			'client' => 'administrator'
+		],
 		[ 	'directory' => '/src/Helper',
 			'src' => 'ExtensionHelper.txt',
 			'dest' => '{{component_capitalize}}Helper.php',
@@ -177,7 +183,96 @@ final class SourceMap
 			'package' => 'component',
 			'client' => 'administrator'
 		],
-		[ 	'directory' => '/', // This language directory is relative to Assets/language directory
+
+		/** Data for the component's site client. */
+		[ 	'directory' => '/helpers',
+			'src' => '',
+			'dest' => '',
+			'package' => 'component',
+			'client' => 'site'
+		],
+		[ 	'directory' => '/layouts',
+			'src' => '',
+			'dest' => '',
+			'package' => 'component',
+			'client' => 'site'
+		],
+		[ 	'directory' => '/src/Controller',
+			'src' => 'DisplayController.txt',
+			'dest' => 'DisplayController.php',
+			'package' => 'component',
+			'client' => 'site'
+		],
+		[ 	'directory' => '/src/Controller',
+			'src' => 'NotesController.txt',
+			'dest' => 'NotesController.php',
+			'package' => 'component',
+			'client' => 'site'
+		],
+		[ 	'directory' => '/src/Dispatcher',
+			'src' => 'Dispatcher.txt',
+			'dest' => 'Dispatcher.php',
+			'package' => 'component',
+			'client' => 'site'
+		],
+		[ 	'directory' => '/src/Helper',
+			'src' => 'RouteHelper.txt',
+			'dest' => 'RouteHelper.php',
+			'package' => 'component',
+			'client' => 'site'
+		],
+		[ 	'directory' => '/src/Model',
+			'src' => 'NoteModel.txt',
+			'dest' => 'NoteModel.php',
+			'package' => 'component',
+			'client' => 'site'
+		],
+		[ 	'directory' => '/src/Model',
+			'src' => 'NotesModel.txt',
+			'dest' => 'NotesModel.php',
+			'package' => 'component',
+			'client' => 'site'
+		],
+		[ 	'directory' => '/src/Service',
+			'src' => 'Router.txt',
+			'dest' => 'Router.php',
+			'package' => 'component',
+			'client' => 'site'
+		],
+		[ 	'directory' => '/src/View/Note',
+			'src' => 'HtmlView.txt',
+			'dest' => 'HtmlView.php',
+			'package' => 'component',
+			'client' => 'site'
+		],
+		[ 	'directory' => '/src/View/Notes',
+			'src' => 'HtmlView.txt',
+			'dest' => 'HtmlView.php',
+			'package' => 'component',
+			'client' => 'site'
+		],
+		[ 	'directory' => '/tmpl/note',
+			'src' => 'default.txt',
+			'dest' => 'default.php',
+			'package' => 'component',
+			'client' => 'site'
+		],
+		[ 	'directory' => '/tmpl/notes',
+			'src' => 'default.txt',
+			'dest' => 'default.php',
+			'package' => 'component',
+			'client' => 'site'
+		],
+		[ 	'directory' => '/tmpl/notes',
+			'src' => 'menu.txt',
+			'dest' => 'default.xml',
+			'package' => 'component',
+			'client' => 'site'
+		],
+
+		/** Data for the language files. */
+		/** his language directory is relative to Assets/language directory */
+		[ 	'directory' => '/',
 			'src' => 'extension.txt',
 			'dest' => '{{prefix_component}}.ini',
 			'package' => 'language',
@@ -195,6 +290,8 @@ final class SourceMap
 			'package' => 'language',
 			'client' => 'site'
 		],
+
+		/** Data for media files. */
 		[ 	'directory' => '/',
 			'src' => 'joomla.asset.txt',
 			'dest' => 'joomla.asset.json',
@@ -210,6 +307,12 @@ final class SourceMap
 		[ 	'directory' => '/css',
 			'src' => 'icons.txt',
 			'dest' => 'icons.css',
+			'package' => 'media',
+			'client' => ''
+		],
+		[ 	'directory' => '/css',
+			'src' => 'notes.txt',
+			'dest' => 'notes.css',
 			'package' => 'media',
 			'client' => ''
 		],

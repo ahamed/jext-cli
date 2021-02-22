@@ -1,0 +1,105 @@
+<?php
+/**
+ * @package     Joomla.Site
+ * @subpackage  {{prefix_component}}
+ *
+ * @copyright   {{copyright}}
+ * @license     {{license}}
+ */
+
+namespace {{namespace}}\Site\View\Note;
+
+\defined('_JEXEC') or die('Restricted Direct Access!');
+
+use Joomla\CMS\Categories\Categories;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Feed\FeedFactory;
+use Joomla\CMS\Helper\TagsHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\View\GenericDataException;
+use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
+
+/**
+ * HTML View class for the {{component_capitalize}} component
+ *
+ * @since  {{version}}
+ */
+class HtmlView extends BaseHtmlView
+{
+	/**
+	 * The model state
+	 *
+	 * @var     object
+	 * @since   {{version}}
+	 */
+	protected $state;
+
+	/**
+	 * The note item
+	 *
+	 * @var     object
+	 * @since   {{version}}
+	 */
+	protected $item;
+
+	/**
+	 * The current user instance
+	 *
+	 * @var    \JUser|null
+	 * @since  {{version}}
+	 */
+	protected $user = null;
+
+	/**
+	 * The page class suffix
+	 *
+	 * @var    string
+	 * @since  {{version}}
+	 */
+	protected $pageclass_sfx = '';
+
+	/**
+	 * The page parameters
+	 *
+	 * @var    \Joomla\Registry\Registry|null
+	 * @since  {{version}}
+	 */
+	protected $params;
+
+	/**
+	 * Execute and display a template script.
+	 *
+	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
+	 *
+	 * @return  mixed  A string if successful, otherwise an Error object.
+	 *
+	 * @since   {{version}}
+	 */
+	public function display($tpl = null)
+	{
+		$app  = Factory::getApplication();
+		$user = $app->getIdentity();
+
+		$state = $this->get('State');
+		$item  = $this->get('Item');
+		$model = $this->getModel();
+
+		// Check for errors.
+		if (count($errors = $this->get('Errors')))
+		{
+			throw new GenericDataException(implode("\n", $errors), 500);
+		}
+
+		$params = $state->get('params');
+
+		// Escape strings for HTML output
+		$this->pageclass_sfx = htmlspecialchars($params->get('pageclass_sfx'));
+
+		$this->params = $params;
+		$this->state  = $state;
+		$this->item   = $item;
+		$this->user   = $user;
+
+		return parent::display($tpl);
+	}
+}

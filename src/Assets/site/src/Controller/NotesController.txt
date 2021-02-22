@@ -1,0 +1,24 @@
+<?php
+/**
+ * @package     Joomla.Site
+ * @subpackage  {{prefix_component}}
+ *
+ * @copyright   {{copyright}}
+ * @license     {{license}}
+ */
+
+namespace {{namespace}}\Site\Controller;
+
+\defined('_JEXEC') or die('Restricted Direct Access!');
+
+use Joomla\CMS\MVC\Controller\BaseController;
+
+
+/**
+ * Notes controller class.
+ *
+ * @since	1.0.0
+ */
+class NotesController extends BaseController
+{
+}

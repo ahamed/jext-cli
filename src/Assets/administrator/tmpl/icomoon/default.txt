@@ -24,8 +24,8 @@ $this->document->addScriptOptions('config', ['base' => rtrim(Uri::root(), '/')])
 <div id="{{component}}-icomoon-container">
 	<div class="{{component}}-icons-searchbar">
 		<input type="text" class="form-control {{component}}-icon-search" placeholder="Search icons">
-		<?php echo HTMLHelper::_('icon.render', 'search', 'placeholder-icon'); ?>
-		<?php echo HTMLHelper::_('icon.render', 'times', 'remove-icon'); ?>
+		<?php echo HTMLHelper::_('icomoon.render', 'search', 'placeholder-icon'); ?>
+		<?php echo HTMLHelper::_('icomoon.render', 'times', 'remove-icon'); ?>
 	</div>
 	<div class="{{component}}-message-bar">
 		<h2 class="{{component}}-total-icons"></h2>
