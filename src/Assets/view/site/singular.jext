@@ -7,20 +7,20 @@
  * @license     {{license}}
  */
 
-namespace {{namespace}}\Site\View\Notes;
+namespace {{namespace}}\Site\View\{{singular_capitalize}};
 
-\defined('_JEXEC') or die;
+\defined('_JEXEC') or die('Restricted Direct Access!');
 
+use Joomla\CMS\Categories\Categories;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Feed\FeedFactory;
+use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
-use Joomla\CMS\Plugin\PluginHelper;
-use Joomla\CMS\Router\Route;
-use {{namespace}}\Site\Helper\RouteHelper;
 
 /**
- * Frontpage View class
+ * HTML View class for the {{component_capitalize}} component
  *
  * @since  {{version}}
  */
@@ -29,28 +29,24 @@ class HtmlView extends BaseHtmlView
 	/**
 	 * The model state
 	 *
-	 * @var  \JObject
+	 * @var     object
+	 * @since   {{version}}
 	 */
-	protected $state = null;
+	protected $state;
 
 	/**
-	 * The featured notes array
+	 * The {{singular}} item
 	 *
-	 * @var  \stdClass[]
+	 * @var     object
+	 * @since   {{version}}
 	 */
-	protected $items = null;
+	protected $item;
 
 	/**
-	 * The pagination object.
+	 * The current user instance
 	 *
-	 * @var  \JPagination
-	 */
-	protected $pagination = null;
-
-	/**
-	 * The user object
-	 *
-	 * @var  \JUser|null
+	 * @var    \JUser|null
+	 * @since  {{version}}
 	 */
 	protected $user = null;
 
@@ -68,7 +64,7 @@ class HtmlView extends BaseHtmlView
 	 * @var    \Joomla\Registry\Registry|null
 	 * @since  {{version}}
 	 */
-	protected $params = null;
+	protected $params;
 
 	/**
 	 * Execute and display a template script.
@@ -76,17 +72,17 @@ class HtmlView extends BaseHtmlView
 	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @return  mixed  A string if successful, otherwise an Error object.
+	 *
+	 * @since   {{version}}
 	 */
 	public function display($tpl = null)
 	{
-		$user = Factory::getApplication()->getIdentity();
+		$app  = Factory::getApplication();
+		$user = $app->getIdentity();
 
-		$state      = $this->get('State');
-		$items      = $this->get('Items');
-		$pagination = $this->get('Pagination');
-
-		// Flag indicates to not add limitstart=0 to URL
-		$pagination->hideEmptyLimitstart = true;
+		$state = $this->get('State');
+		$item  = $this->get('Item');
+		$model = $this->getModel();
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
@@ -94,22 +90,16 @@ class HtmlView extends BaseHtmlView
 			throw new GenericDataException(implode("\n", $errors), 500);
 		}
 
-		/** @var \Joomla\Registry\Registry $params */
-		$params = &$state->params;
+		$params = $state->get('params');
 
-		foreach ($items as &$item)
-		{
-			$item->url = RouteHelper::generateUrl('{{singular}}', $item->id, $item->alias, $item->language);
-		}
-
+		// Escape strings for HTML output
 		$this->pageclass_sfx = htmlspecialchars($params->get('pageclass_sfx'));
 
-		$this->params     = $params;
-		$this->items      = $items;
-		$this->pagination = $pagination;
-		$this->user       = $user;
+		$this->params = $params;
+		$this->state  = $state;
+		$this->item   = $item;
+		$this->user   = $user;
 
-		parent::display($tpl);
+		return parent::display($tpl);
 	}
-
 }

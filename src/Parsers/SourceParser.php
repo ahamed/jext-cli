@@ -10,7 +10,6 @@ namespace Ahamed\Jext\Parsers;
 
 use Ahamed\Jext\Utils\ComponentHelper;
 use Ahamed\Jext\Utils\Printer;
-use Exception;
 
 /**
  * Source code parsers.
@@ -26,7 +25,7 @@ class SourceParser
 	 *
 	 * @since	1.0.0
 	 */
-	private $srcPath = '';
+	protected $srcPath = '';
 
 	/**
 	 * The file destination path (relative to the project root)
@@ -35,7 +34,7 @@ class SourceParser
 	 *
 	 * @since	1.0.0
 	 */
-	private $destPath = '';
+	protected $destPath = '';
 
 	/**
 	 * The component meta data created before by the user.
@@ -44,7 +43,7 @@ class SourceParser
 	 *
 	 * @since	1.0.0
 	 */
-	private $meta = [];
+	protected $meta = [];
 
 	/**
 	 * Constructor function for the source parser.
@@ -62,6 +61,20 @@ class SourceParser
 		}
 
 		$this->meta = \json_decode(\file_get_contents($metaPath), true);
+	}
+
+	/**
+	 * Set meta data array.
+	 *
+	 * @param	array	$data	The meta data.
+	 *
+	 * @return	void
+	 *
+	 * @since	1.0.0
+	 */
+	public function setMeta(array $data) : void
+	{
+		$this->meta = $data;
 	}
 
 	/**

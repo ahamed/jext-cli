@@ -1,0 +1,8 @@
+;; {{plural_capitalize}} view
+{{prefix_component_uppercase}}_{{plural_uppercase}}_TOOLBAR_LABEL="{{plural_capitalize}}"
+
+;; {{singular_capitalize}} view (single)
+{{prefix_component_uppercase}}_{{singular_uppercase}}_NEW="Add new {{singular}}"
+{{prefix_component_uppercase}}_{{singular_uppercase}}_EDIT="Edit {{singular}}"
+
+;;{{inject: administrator_language}}

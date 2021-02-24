@@ -1,0 +1,7 @@
+{{prefix_component_uppercase}}_{{plural_uppercase}}_VIEW_DEFAULT_TITLE="{{plural_capitalize}}"
+{{prefix_component_uppercase}}_{{plural_uppercase}}_VIEW_DEFAULT_OPTION="Default"
+JHELP_MENUS_MENU_ITEM_{{plural_uppercase}}="Menu_Item:_{{plural_capitalize}}"
+{{prefix_component_uppercase}}_{{plural_uppercase}}_VIEW_DEFAULT_DESC="Show all the {{plural}}."
+{{prefix_component_uppercase}}_{{plural_uppercase}}_SETTINGS_LABEL="Settings"
+
+;;{{inject: site_menuitem_language}}

@@ -1,0 +1,31 @@
+	/**
+	 * Method to get the segment(s) for a {{singular}}
+	 *
+	 * @param   string  $id     ID of the category to retrieve the segments for
+	 * @param   array   $query  The request that is built right now
+	 *
+	 * @return  array|string  The segments of this item
+	 *
+	 * @since  {{version}}
+	 */
+	public function get{{singular_capitalize}}Segment($id, $query)
+	{
+		return $this->getViewSegment($id, '#__{{component}}_{{plural}}');
+	}
+
+	/**
+	 * Method to get the {{singular}} Id
+	 *
+	 * @param   string  $segment  Segment of the {{singular}} to retrieve the ID for
+	 * @param   array   $query    The request that is parsed right now
+	 *
+	 * @return  mixed   The id of this item or false
+	 *
+	 * @since  {{version}}
+	 */
+	public function get{{singular_capitalize}}Id($segment, $query)
+	{
+		return $this->getViewId($segment, '#__{{component}}_{{plural}}');
+	}
+
+	//{{inject: router_methods}}

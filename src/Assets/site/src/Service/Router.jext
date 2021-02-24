@@ -79,6 +79,8 @@ class Router extends RouterView
 
 		/** Register your other other views here */
 
+		//{{inject: register_router_view}}
+
 		parent::__construct($app, $menu);
 
 		$this->attachRule(new MenuRules($this));
@@ -219,4 +221,6 @@ class Router extends RouterView
 	{
 		return $this->getViewId($segment, '#__{{component}}_notes');
 	}
+
+	//{{inject: router_methods}}
 }

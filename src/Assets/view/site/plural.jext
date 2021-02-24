@@ -7,9 +7,9 @@
  * @license     {{license}}
  */
 
-namespace {{namespace}}\Site\View\Notes;
+namespace {{namespace}}\Site\View\{{plural_capitalize}};
 
-\defined('_JEXEC') or die;
+\defined('_JEXEC') or die('Restricted Direct Access!');
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
@@ -20,7 +20,7 @@ use Joomla\CMS\Router\Route;
 use {{namespace}}\Site\Helper\RouteHelper;
 
 /**
- * Frontpage View class
+ * Front page View class
  *
  * @since  {{version}}
  */
@@ -34,7 +34,7 @@ class HtmlView extends BaseHtmlView
 	protected $state = null;
 
 	/**
-	 * The featured notes array
+	 * The featured {{plural}} array
 	 *
 	 * @var  \stdClass[]
 	 */
@@ -111,5 +111,4 @@ class HtmlView extends BaseHtmlView
 
 		parent::display($tpl);
 	}
-
 }

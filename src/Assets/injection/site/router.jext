@@ -1,0 +1,8 @@
+
+		${{plural}} = new RouterViewConfiguration('{{plural}}');
+		$this->registerView(${{plural}});
+		${{singular}} = new RouterViewConfiguration('{{singular}}');
+		${{singular}}->setKey('id')->setParent(${{plural}});
+		$this->registerView(${{singular}});
+
+		//{{inject: register_router_view}}

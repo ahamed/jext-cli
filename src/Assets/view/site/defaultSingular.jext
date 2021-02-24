@@ -1,0 +1,20 @@
+<?php
+/**
+ * @package     Joomla.Site
+ * @subpackage  {{prefix_component}}
+ *
+ * @copyright   {{copyright}}
+ * @license     {{license}}
+ */
+
+defined('_JEXEC') or die('Restricted Direct Access!');
+
+$wa = $this->document->getWebAssetManager();
+$wa->useStyle('{{prefix_component}}.styles');
+
+?>
+
+<div class="com-{{component}} view-{{singular}} view-singular-details <?php echo $this->pageclass_sfx; ?>">
+	<h2 class="{{component}}-view-singular-title"><?php echo $this->item->title; ?></h2>
+	{{credit}}
+</div>

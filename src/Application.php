@@ -11,6 +11,7 @@ namespace Ahamed\Jext;
 use Ahamed\Jext\Controllers\ComponentController;
 use Ahamed\Jext\Controllers\HelpController;
 use Ahamed\Jext\Controllers\VersionController;
+use Ahamed\Jext\Controllers\ViewController;
 use Ahamed\Jext\Registry;
 
 /**
@@ -60,12 +61,17 @@ class Application
 	public function runCommand(array $argv = [])
 	{
 		$command = $argv[1] ?? $this->defaultCommand;
-		
+
 		switch ($command)
 		{
 			case '--component':
 			case '-c':
 				$this->registry->registerController($command, new ComponentController);
+				\call_user_func($this->registry->getRegistry($command), $argv);
+				break;
+
+			case '--view':
+				$this->registry->registerController($command, new ViewController);
 				\call_user_func($this->registry->getRegistry($command), $argv);
 				break;
 

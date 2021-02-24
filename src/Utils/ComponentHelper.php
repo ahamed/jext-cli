@@ -69,6 +69,48 @@ class ComponentHelper
 	}
 
 	/**
+	 * Parse injections.
+	 *
+	 * @param	string	$content		The content being parsed.
+	 * @param	string	$type			The injection type.
+	 * @param	string	$replacement	The replacement content.
+	 *
+	 * @return	string	The parsed contents.
+	 *
+	 * @since	1.0.0
+	 */
+	public static function parseInjections(string $content,  string $replacement, string $type) : string
+	{
+		$regex = "@(--|;;|<!--|\/\/|\/\*\*)\s*{{inject:\s*([^(}})]*)}}(-->|\*\/)?@mi";
+		$matches = [];
+		$fullMatch = [];
+		$injections = [];
+
+		preg_match_all($regex, $content, $matches);
+
+		/** Check if the group 2 is present in the matches. */
+		if (!empty($matches) && !empty($matches[2]))
+		{
+			$injections = $matches[2];
+			$fullMatch = $matches[0];
+		}
+
+		if (!empty($injections))
+		{
+			foreach ($injections as $key => $injection)
+			{
+				if ($type === $injection)
+				{
+					$content = preg_replace("@" . $fullMatch[$key] . "@i", $replacement, $content);
+					break;
+				}
+			}
+		}
+
+		return $content;
+	}
+
+	/**
 	 * Parse the source content.
 	 *
 	 * @param	string	$content	The source content.
@@ -94,7 +136,6 @@ class ComponentHelper
 		$year = (new \DateTime)->format('Y');
 		$credit = '<div class="jext-cli-footnote" style="min-height: 80px;background: #ffffff;margin-top: 100px;display: flex;flex-direction: column;justify-content: center;align-items: center;border-radius: 10px;box-shadow: 1px 1px 2px 0px #2222225c;font-family: \'helvetica\', sans-serif;font-size: 14px;color: #757575;"><p style="margin: 0;">Powered by <a href="https://github.com/ahamed/jext-cli" style="text-decoration: none;"><code>JEXT-CLI</code></a>, Developed by <a href="https://ahamed.github.io" style="text-decoration: none;">Sajeeb Ahamed</a></p><a href="https://ahamed.github.io" style="text-decoration: none;"><small>&copy; ' . $year . ', Sajeeb Ahamed</small></a></div>';
 
-
 		$content = preg_replace("@{{prefix_component}}@", $prefixedName, $content);
 		$content = preg_replace("@{{prefix_component_uppercase}}@", $prefixedUppercase, $content);
 		$content = preg_replace("@{{component_capitalize}}@", $capitalizeName, $content);
@@ -111,6 +152,12 @@ class ComponentHelper
 		$content = preg_replace("@{{description}}@", $description, $content);
 		$content = preg_replace("@{{year}}@", $year, $content);
 		$content = preg_replace("@{{credit}}@", $credit, $content);
+		$content = preg_replace("@{{singular}}@", $singular, $content);
+		$content = preg_replace("@{{plural}}@", $plural, $content);
+		$content = preg_replace("@{{singular_capitalize}}@", \ucfirst($singular), $content);
+		$content = preg_replace("@{{plural_capitalize}}@", \ucfirst($plural), $content);
+		$content = preg_replace("@{{singular_uppercase}}@", \strtoupper($singular), $content);
+		$content = preg_replace("@{{plural_uppercase}}@", \strtoupper($plural), $content);
 
 		return $content;
 	}

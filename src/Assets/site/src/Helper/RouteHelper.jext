@@ -11,6 +11,7 @@ namespace {{namespace}}\Site\Helper;
 
 \defined('_JEXEC') or die('Restricted Direct Access!');
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\RouteHelper as CMSRouteHelper;
 use Joomla\CMS\Language\Multilanguage;
 
@@ -25,6 +26,7 @@ class RouteHelper extends CMSRouteHelper
 	/**
 	 * Get note route.
 	 *
+	 * @param	string	$view		The singular view name.
 	 * @param	int		$id			The note id.
 	 * @param	string	$alias		The note alias.
 	 * @param	string	$language	The language string.
@@ -33,7 +35,7 @@ class RouteHelper extends CMSRouteHelper
 	 *
 	 * @since	{{version}}
 	 */
-	public static function getNoteRoute(int $id, string $alias, string $language = '*') : string
+	public static function generateUrl(string $view, int $id, string $alias, string $language = '*') : string
 	{
 		$link = '';
 
@@ -43,7 +45,7 @@ class RouteHelper extends CMSRouteHelper
 		}
 
 		// Create the link
-		$link = 'index.php?option={{prefix_component}}&view=note&id=' . $id . ':' . $alias;
+		$link = 'index.php?option={{prefix_component}}&view=' . $view . '&id=' . $id . ':' . $alias;
 
 		if ($language !== '*' && Multilanguage::isEnabled())
 		{

@@ -1,0 +1,30 @@
+<?php
+/**
+ * @package     Joomla.Site
+ * @subpackage  {{prefix_component}}
+ *
+ * @copyright   {{copyright}}
+ * @license     {{license}}
+ */
+
+use Joomla\CMS\Language\Text;
+
+$wa = $this->document->getWebAssetManager();
+$wa->useStyle('{{prefix_component}}.styles');
+
+?>
+
+<div class="com-{{component}} view-{{plural}} <?php echo $this->pageclass_sfx; ?>">
+	<div class="{{component}}-view-plural">
+		<?php foreach ($this->items as $item): ?>
+			<div class="{{component}}-view-item">
+				<a class="{{component}}-view-link" href="<?php echo $item->url; ?>">
+					<?php echo $item->title; ?>
+				</a>
+			</div>
+		<?php endforeach ?>
+	</div>
+	<?php echo $this->pagination->getListFooter(); ?>
+
+	{{credit}}
+</div>

@@ -1,0 +1,2 @@
+			<menu link="option={{prefix_component}}&amp;view={{plural}}" view="{{plural}}" img="class:book" alt="{{component_uppercase}}/{{plural_capitalize}}">{{prefix_component_uppercase}}_SUBMENU_{{plural_uppercase}}</menu>
+			<!--{{inject: administrator_sub_menu}}-->

@@ -14,7 +14,6 @@ use Ahamed\Jext\Parsers\SourceParser;
 use Ahamed\Jext\Utils\ComponentHelper;
 use Ahamed\Jext\Utils\Printer;
 use Ahamed\Jext\Utils\SourceMap;
-use DateTime;
 
 /**
  * Create the component controller.
@@ -44,30 +43,6 @@ class ComponentController extends BaseController implements ControllerInterface
 		parent::__construct();
 	}
 
-
-	/**
-	 * Print JEXT-CLI ASCII logo.
-	 *
-	 * @return	void
-	 *
-	 * @since	1.0.0
-	 */
-	private function printAsciiLogo()
-	{
-		Printer::println(Printer::getColorizeMessage(
-			"
-_________   _______              _________         _______    _         _________
-\__    _/  (  ____ \  |\     /|  \__   __/        (  ____ \  ( \        \__   __/
-   )  (    | (    \/  ( \   / )     ) (           | (    \/  | (           ) (   
-   |  |    | (__       \ (_) /      | |   _____   | |        | |           | |   
-   |  |    |  __)       ) _ (       | |  (_____)  | |        | |           | |   
-   |  |    | (         / ( ) \      | |           | |        | |           | |   
-|\_)  )    | (____/\  ( /   \ )     | |           | (____/\  | (____/\  ___) (___
-(____/     (_______/  |/     \|     )_(           (_______/  (_______/  \_______/                                                             
-			",
-		'green'));
-	}
-
 	/**
 	 * Set the component name.
 	 *
@@ -95,24 +70,6 @@ _________   _______              _________         _______    _         ________
 	}
 
 	/**
-	 * Sanitize the user inputs.
-	 *
-	 * @param	string	$input	The input string.
-	 *
-	 * @return	string	The sanitized input string.
-	 *
-	 * @since	1.0.0
-	 */
-	private function sanitizeInput(string $input)
-	{
-		/** Remove the leading and trailing quotes. */
-		$input = preg_replace("@^[\"\']@", '', $input);
-		$input = preg_replace("@[\"\']$@", '', $input);
-
-		return $input;
-	}
-
-	/**
 	 * Handling the component meta information.
 	 *
 	 * @return	void
@@ -123,7 +80,7 @@ _________   _______              _________         _______    _         ________
 	{
 		$stdin = fopen("php://stdin", 'r');
 		$currentUser = exec('whoami');
-		$currentYear = (new DateTime)->format('Y');
+		$currentYear = (new \DateTime)->format('Y');
 		$defaultNamespace = ComponentHelper::generateComponentNamespace($this->name);
 
 		Printer::print("Author Name [" . Printer::getColorizeMessage($currentUser, 'yellow') . "]: ");
@@ -159,7 +116,7 @@ _________   _______              _________         _______    _         ________
 		$namespace = trim(fgets($stdin));
 		$namespace = !empty($namespace) ? $namespace: $defaultNamespace;
 		
-		$creationDate = (new DateTime)->format('d F, Y');
+		$creationDate = (new \DateTime)->format('d F, Y');
 
 		Printer::println();
 
@@ -173,7 +130,9 @@ _________   _______              _________         _______    _         ________
 			'url' => $url,
 			'version' => $version,
 			'description' => $description,
-			'namespace' => $namespace
+			'namespace' => $namespace,
+			'singular' => 'note',
+			'plural' => 'notes'
 		];
 
 		foreach ($this->meta as $key => $value)

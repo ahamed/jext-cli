@@ -7,17 +7,19 @@
 {{prefix_component_uppercase}}_GLOBAL_SEARCH_LABEL="Search"
 {{prefix_component_uppercase}}_GLOBAL_SEARCH_LABEL_DESC="Enter search keywords here"
 {{prefix_component_uppercase}}_GLOBAL_TAB_BASIC="Basic"
-
-;; Notes view
-{{prefix_component_uppercase}}_NOTES_TOOLBAR_LABEL="Notes"
 {{prefix_component_uppercase}}_N_ITEMS_PUBLISHED="%d item(s) published"
 {{prefix_component_uppercase}}_N_ITEMS_UNPUBLISHED="%d item(s) unpublished"
 {{prefix_component_uppercase}}_N_ITEMS_CHECKED_IN="%d item(s) checked in"
 {{prefix_component_uppercase}}_N_ITEMS_ARCHIVED="%d item(s) archived"
 {{prefix_component_uppercase}}_N_ITEMS_TRASHED="%d item(s) trashed"
 
+;; Notes view
+{{prefix_component_uppercase}}_NOTES_TOOLBAR_LABEL="Notes"
+
 ;; Note view (single)
 {{prefix_component_uppercase}}_NOTE_NEW="Add new note"
 {{prefix_component_uppercase}}_NOTE_EDIT="Edit note"
 {{prefix_component_uppercase}}_NOTE_DESCRIPTION="Your Note"
 {{prefix_component_uppercase}}_NOTE_DESCRIPTION_DESC="Write down your note here."
+
+;;{{inject: administrator_language}}

@@ -10,3 +10,7 @@
 JHELP_MENUS_MENU_ITEM_NOTES="Menu_Item:_Notes"
 {{prefix_component_uppercase}}_NOTES_VIEW_DEFAULT_DESC="Show all the notes."
 {{prefix_component_uppercase}}_NOTES_SETTINGS_LABEL="Settings"
+
+;;{{inject: site_menuitem_language}}
+
+;;{{inject: administrator_system_language}}
