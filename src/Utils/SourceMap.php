@@ -327,6 +327,12 @@ final class SourceMap
 			'package' => 'media',
 			'client' => ''
 		],
+		[ 	'directory' => '/css',
+			'src' => 'styles.jext',
+			'dest' => 'styles.css',
+			'package' => 'media',
+			'client' => ''
+		],
 	];
 
 	/**

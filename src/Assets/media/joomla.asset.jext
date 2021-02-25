@@ -23,6 +23,11 @@
 			"name": "{{prefix_component}}.notes",
 			"type": "style",
 			"uri": "{{prefix_component}}/notes.css"
+		},
+		{
+			"name": "{{prefix_component}}.styles",
+			"type": "style",
+			"uri": "{{prefix_component}}/styles.css"
 		}
 	]
 }
