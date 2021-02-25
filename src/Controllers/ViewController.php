@@ -32,7 +32,7 @@ class ViewController extends BaseController implements ControllerInterface
 	 * @since	1.0.0
 	 */
 	protected $singular;
-	
+
 	/**
 	 * The plural view name.
 	 *
@@ -41,7 +41,7 @@ class ViewController extends BaseController implements ControllerInterface
 	 * @since	1.0.0
 	 */
 	protected $plural;
-	
+
 	/**
 	 * The component name.
 	 *
@@ -73,7 +73,7 @@ class ViewController extends BaseController implements ControllerInterface
 
 		/** By default we assume that the client is --back if user skip it. */
 		$this->client = '--back';
-		
+
 		parent::__construct();
 	}
 
@@ -168,7 +168,7 @@ class ViewController extends BaseController implements ControllerInterface
 			? 'components'
 			: 'administrator/components';
 
-		$directory = $this->workingDirectory . '/' . $path . '/' . 'com_' . $component;
+		$directory = $this->workingDirectory . '/' . $path . '/com_' . $component;
 
 		return \file_exists($directory);
 	}
@@ -252,7 +252,7 @@ class ViewController extends BaseController implements ControllerInterface
 		Printer::print("Component name []: ");
 		$component = trim(fgets($stdin));
 		$component = \strtolower($component);
-		
+
 		if (empty($component))
 		{
 			Printer::println(Printer::getColorizeMessage("Component name is required", 'red'));
@@ -285,7 +285,12 @@ class ViewController extends BaseController implements ControllerInterface
 
 		if ($this->hasView($singular))
 		{
-			Printer::print(\sprintf("The view `%s` exists in the component `%s`. Do you want to overwrite it? [" . Printer::getColorizeMessage("no", 'yellow') . "]: ", $singular, $component));
+			Printer::print(
+				\sprintf(
+					"The view `%s` exists in the component `%s`. Do you want to overwrite it? [" .
+					Printer::getColorizeMessage("no", 'yellow') . "]: ", $singular, $component
+				)
+			);
 			$confirm = trim(fgets($stdin));
 			$confirm = \strtolower($confirm) === 'yes';
 
@@ -336,7 +341,7 @@ class ViewController extends BaseController implements ControllerInterface
 				{
 					mkdir($dest, 0755, true);
 				}
-					
+
 				$parser->src($src)
 					->dest($dest . '/' . ComponentHelper::parseContent($map['dest'], $meta))
 					->parse();
@@ -367,7 +372,7 @@ class ViewController extends BaseController implements ControllerInterface
 			{
 				$src = $cliRoot . '/' . $this->mapClient($this->getValue('client')) . '/' . $map['src'];
 				$dest = $componentRoot . ComponentHelper::parseContent($map['directory'], $meta);
-					
+
 				$parser->setType($map['type'])
 					->src($src)
 					->dest($dest . '/' . ComponentHelper::parseContent($map['dest'], $meta))
@@ -378,6 +383,8 @@ class ViewController extends BaseController implements ControllerInterface
 
 	/**
 	 * The run function for the controller which is responsible for running a command.
+	 *
+	 * @param	array	$args	The arguments array.
 	 *
 	 * @return	void
 	 *

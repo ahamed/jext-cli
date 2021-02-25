@@ -89,12 +89,4 @@ final class Printer
 
 		return "\033[" . self::$colorMap[$color] . "m" . $message . "\033[0m";
 	}
-
-	/**
-	 * Display function of the printer.
-	 */
-	public static function display(string $message) : void
-	{
-		self::println($message);
-	}
 }

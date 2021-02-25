@@ -22,6 +22,8 @@ class HelpController extends BaseController implements ControllerInterface
 	/**
 	 * The run function for the controller which is responsible for running a command.
 	 *
+	 * @param	array	$args	The arguments array.
+	 *
 	 * @return	void
 	 *
 	 * @since	1.0.0
@@ -35,7 +37,11 @@ class HelpController extends BaseController implements ControllerInterface
 		Printer::println(Printer::getColorizeMessage("\t-h, --help", 'green') . "\t\t\tDisplay the help message");
 		Printer::println(Printer::getColorizeMessage("\t-v, --version", 'green') . "\t\t\tDisplay current stable version");
 		Printer::println(Printer::getColorizeMessage("\t-c, --component <name>", 'green') . "\t\tCreate component");
-		Printer::println(Printer::getColorizeMessage("\t-v, --view <name> [-f, --front]", 'green') . "\tCreate View with name and frontend view flag");
-		Printer::println(Printer::getColorizeMessage("\t-v, --view <name> [-b, --back]", 'green') . "\tCreate View with name and backend view flag");
+		Printer::println(
+			Printer::getColorizeMessage("\t-v, --view <name> [-f, --front]", 'green') . "\tCreate View with name and frontend view flag"
+		);
+		Printer::println(
+			Printer::getColorizeMessage("\t-v, --view <name> [-b, --back]", 'green') . "\tCreate View with name and backend view flag"
+		);
 	}
 }

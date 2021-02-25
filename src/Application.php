@@ -87,7 +87,6 @@ class Application
 				$this->registry->registerController($command, new HelpController);
 				\call_user_func($this->registry->getRegistry($command), $argv);
 				break;
-			
 		}
 	}
 }

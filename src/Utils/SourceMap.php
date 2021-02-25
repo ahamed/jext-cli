@@ -543,6 +543,8 @@ final class SourceMap
 	/**
 	 * Get the source map.
 	 *
+	 * @param	int		$type	The sourcemap type.
+	 *
 	 * @return	array	The source mapping array.
 	 *
 	 * @since	1.0.0
@@ -557,7 +559,7 @@ final class SourceMap
 				return self::$injectionSourceMap;
 			case self::COMPONENT_MAP:
 			default:
-				return self::$sourceMap;		
+				return self::$sourceMap;
 		}
 	}
 }

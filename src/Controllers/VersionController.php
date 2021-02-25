@@ -22,12 +22,14 @@ class VersionController extends BaseController implements ControllerInterface
 	/**
 	 * The run function for the controller which is responsible for running a command.
 	 *
+	 * @param	array	$args	The arguments array.
+	 *
 	 * @return	void
 	 *
 	 * @since	1.0.0
 	 */
 	public function run(array $args = []) : void
 	{
-		Printer::display("Jext-CLI version 1.0.0");
+		Printer::println("Jext-CLI version 1.0.0");
 	}
 }

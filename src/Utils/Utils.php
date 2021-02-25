@@ -36,7 +36,7 @@ final class Utils
 		'/(shea|lea|loa|thie)f$/i' => "$1ves",
 		'/sis$/i'                  => "ses",
 		'/([ti])um$/i'             => "$1a",
-		'/(tomat|potat|ech|her|vet)o$/i'=> "$1oes",
+		'/(tomat|potat|ech|her|vet)o$/i' => "$1oes",
 		'/(bu)s$/i'                => "$1ses",
 		'/(alias)$/i'              => "$1es",
 		'/(octop)us$/i'            => "$1i",
@@ -64,7 +64,7 @@ final class Utils
 		'person' => 'people',
 		'valve'  => 'valves'
 	);
-	
+
 	/**
 	 * No change values.
 	 *
@@ -72,8 +72,8 @@ final class Utils
 	 *
 	 * @since	1.0.0
 	 */
-	private static $noChange = array( 
-		'sheep', 
+	private static $noChange = array(
+		'sheep',
 		'fish',
 		'deer',
 		'series',
@@ -87,7 +87,7 @@ final class Utils
 	/**
 	 * The pluralize method.
 	 *
-	 * @param	string	$str	The singular string.
+	 * @param	string	$string	The singular string.
 	 *
 	 * @return	string	The pluralize string.
 	 *

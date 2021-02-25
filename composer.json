@@ -10,9 +10,15 @@
 			"email": "sajeeb07ahamed@gmail.com"
 		}
 	],
+	"scripts": {
+		"phpcs": "./vendor/bin/phpcs --extensions=php -p ."
+	},
 	"autoload": {
 		"psr-4": {
 			"Ahamed\\Jext\\": "src/"
 		}
+	},
+	"require-dev": {
+		"squizlabs/php_codesniffer": "*"
 	}
 }

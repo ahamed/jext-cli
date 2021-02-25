@@ -39,7 +39,7 @@ class ComponentController extends BaseController implements ControllerInterface
 	public function __construct()
 	{
 		$this->name = '';
-		
+
 		parent::__construct();
 	}
 
@@ -94,16 +94,15 @@ class ComponentController extends BaseController implements ControllerInterface
 		Printer::print("Author Url []: ");
 		$url = trim(fgets($stdin));
 		$url = !empty($url) ? $url : '';
-		
+
 		Printer::print("Description []: ");
 		$description = trim(fgets($stdin));
 		$description = !empty($description) ? $description : '';
-		
-		
+
 		Printer::print("Copyright [" . Printer::getColorizeMessage("(C) {$currentYear}, {$this->sanitizeInput($author)}", 'yellow') . "]: ");
 		$copyright = trim(fgets($stdin));
 		$copyright = !empty($copyright) ? $copyright : "(C) {$currentYear}, {$this->sanitizeInput($author)}";
-		
+
 		Printer::print("License [" . Printer::getColorizeMessage('MIT', 'yellow') . "]: ");
 		$license = trim(fgets($stdin));
 		$license = !empty($license) ? $license : "MIT";
@@ -111,11 +110,11 @@ class ComponentController extends BaseController implements ControllerInterface
 		Printer::print("Version [" . Printer::getColorizeMessage('1.0.0', 'yellow') . "]: ");
 		$version = trim(fgets($stdin));
 		$version = !empty($version) ? $version : "1.0.0";
-		
+
 		Printer::print("Namespace [" . Printer::getColorizeMessage($defaultNamespace, 'yellow') . "]: ");
 		$namespace = trim(fgets($stdin));
-		$namespace = !empty($namespace) ? $namespace: $defaultNamespace;
-		
+		$namespace = !empty($namespace) ? $namespace : $defaultNamespace;
+
 		$creationDate = (new \DateTime)->format('d F, Y');
 
 		Printer::println();
@@ -175,7 +174,6 @@ class ComponentController extends BaseController implements ControllerInterface
 
 		$cliRoot = __DIR__ . '/../Assets/';
 		$componentRoot = $this->workingDirectory;
-
 
 		$parser = new SourceParser;
 
@@ -301,6 +299,8 @@ class ComponentController extends BaseController implements ControllerInterface
 	/**
 	 * The run function for the controller which is responsible for running a command.
 	 *
+	 * @param	array	$args	The arguments array.
+	 *
 	 * @return	void
 	 *
 	 * @since	1.0.0
@@ -308,20 +308,28 @@ class ComponentController extends BaseController implements ControllerInterface
 	public function run(array $args = []) : void
 	{
 		$name = isset($args[2]) ? $args[2] : null;
-		
+
 		if (\is_null($name))
 		{
-			Printer::println(Printer::getColorizeMessage("The --component or -c option requires the <name> value as third argument. e.g: " . Printer::getColorizeMessage("jext-cli --component todo", 'green'), 'red'));
+			Printer::println(
+				Printer::getColorizeMessage(
+					"The --component or -c option requires the <name> value as third argument. e.g: "
+					. Printer::getColorizeMessage("jext-cli --component todo", 'green'), 'red'
+				)
+			);
 			return;
 		}
-		
+
 		$this->setName($name);
 
 		$componentPath = $this->workingDirectory . '/administrator/components/' . ComponentHelper::getModifiedName($this->name, 'prefix');
 
 		if (\file_exists($componentPath))
 		{
-			Printer::print("The component exists in your project. Do you want to overwrite it? [" . Printer::getColorizeMessage("no", 'yellow') . "]: ");
+			Printer::print(
+				"The component exists in your project. Do you want to overwrite it? ["
+				. Printer::getColorizeMessage("no", 'yellow') . "]: "
+			);
 			$stdin = fopen("php://stdin", 'r');
 			$confirmation = trim(fgets($stdin));
 
@@ -333,13 +341,13 @@ class ComponentController extends BaseController implements ControllerInterface
 		}
 
 		$this->printAsciiLogo();
-		
+
 		Printer::println(Printer::getColorizeMessage("(C) Sajeeb Ahamed, All rights reserved.", 'purple'));
 
 		Printer::println();
 		Printer::println("Welcome to JEXT-CLI component builder tool. Please provide the asking information:");
 		Printer::println();
-		
+
 		$this->createComponentMeta();
 
 		Printer::println(Printer::getColorizeMessage("Creating component core files...", 'purple'));
