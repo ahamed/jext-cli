@@ -1,4 +1,0 @@
-{
-	"phpcs.executablePath": "./vendor/bin/phpcs",
-	"phpcs.standard": "./phpcs.xml"
-}
