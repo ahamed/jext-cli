@@ -348,80 +348,81 @@ final class SourceMap
 	 * @var		array	$viewSourceMap	The source map for the view files.
 	 *
 	 * @since	1.0.0
+	 * root/package/client/path
 	 */
 	private static $viewSourceMap = [
 		[
-			'directory' => '/tmpl/{{plural}}',
+			'path' => '/tmpl/{{plural}}',
 			'src' => 'default.jext',
 			'dest' => 'default.php',
 			'client' => 'administrator',
 			'package' => 'view'
 		],
 		[
-			'directory' => '/tmpl/{{singular}}',
+			'path' => '/tmpl/{{singular}}',
 			'src' => 'edit.jext',
 			'dest' => 'edit.php',
 			'client' => 'administrator',
 			'package' => 'view'
 		],
 		[
-			'directory' => '/src/View/{{plural_capitalize}}',
-			'src' => 'plural.jext',
+			'path' => '/src/View/{{plural_capitalize}}',
+			'src' => 'HtmlView.jext',
 			'dest' => 'HtmlView.php',
 			'client' => 'administrator',
 			'package' => 'view'
 		],
 		[
-			'directory' => '/src/View/{{singular_capitalize}}',
+			'path' => '/src/View/{{singular_capitalize}}',
+			'src' => 'HtmlView.jext',
+			'dest' => 'HtmlView.php',
+			'client' => 'administrator',
+			'package' => 'view'
+		],
+		[
+			'path' => '/src/Controller',
 			'src' => 'singular.jext',
-			'dest' => 'HtmlView.php',
-			'client' => 'administrator',
-			'package' => 'view'
-		],
-		[
-			'directory' => '/src/Controller',
-			'src' => 'singularController.jext',
 			'dest' => '{{singular_capitalize}}Controller.php',
 			'client' => 'administrator',
 			'package' => 'view'
 		],
 		[
-			'directory' => '/src/Controller',
-			'src' => 'pluralController.jext',
+			'path' => '/src/Controller',
+			'src' => 'plural.jext',
 			'dest' => '{{plural_capitalize}}Controller.php',
 			'client' => 'administrator',
 			'package' => 'view'
 		],
 		[
-			'directory' => '/src/Model',
-			'src' => 'pluralModel.jext',
+			'path' => '/src/Model',
+			'src' => 'plural.jext',
 			'dest' => '{{plural_capitalize}}Model.php',
 			'client' => 'administrator',
 			'package' => 'view'
 		],
 		[
-			'directory' => '/src/Model',
-			'src' => 'singularModel.jext',
+			'path' => '/src/Model',
+			'src' => 'singular.jext',
 			'dest' => '{{singular_capitalize}}Model.php',
 			'client' => 'administrator',
 			'package' => 'view'
 		],
 		[
-			'directory' => '/src/Table',
+			'path' => '/src/Table',
 			'src' => 'table.jext',
 			'dest' => '{{singular_capitalize}}Table.php',
 			'client' => 'administrator',
 			'package' => 'view'
 		],
 		[
-			'directory' => '/forms',
+			'path' => '/forms',
 			'src' => 'form.jext',
 			'dest' => '{{singular}}.xml',
 			'client' => 'administrator',
 			'package' => 'view'
 		],
 		[
-			'directory' => '/forms',
+			'path' => '/forms',
 			'src' => 'filter.jext',
 			'dest' => 'filter_{{plural}}.xml',
 			'client' => 'administrator',
@@ -430,57 +431,57 @@ final class SourceMap
 
 		/** Site views. */
 		[
-			'directory' => '/tmpl/{{plural}}',
+			'path' => '/tmpl/{{plural}}',
 			'src' => 'default.jext',
 			'dest' => 'default.php',
 			'client' => 'site',
 			'package' => 'view'
 		],
 		[
-			'directory' => '/tmpl/{{plural}}',
+			'path' => '/tmpl/{{plural}}',
 			'src' => 'menu.jext',
 			'dest' => 'default.xml',
 			'client' => 'site',
 			'package' => 'view'
 		],
 		[
-			'directory' => '/tmpl/{{singular}}',
-			'src' => 'defaultSingular.jext',
+			'path' => '/tmpl/{{singular}}',
+			'src' => 'default.jext',
 			'dest' => 'default.php',
 			'client' => 'site',
 			'package' => 'view'
 		],
 		[
-			'directory' => '/src/View/{{plural_capitalize}}',
+			'path' => '/src/View/{{plural_capitalize}}',
+			'src' => 'HtmlView.jext',
+			'dest' => 'HtmlView.php',
+			'client' => 'site',
+			'package' => 'view'
+		],
+		[
+			'path' => '/src/View/{{singular_capitalize}}',
+			'src' => 'HtmlView.jext',
+			'dest' => 'HtmlView.php',
+			'client' => 'site',
+			'package' => 'view'
+		],
+		[
+			'path' => '/src/Controller',
 			'src' => 'plural.jext',
-			'dest' => 'HtmlView.php',
-			'client' => 'site',
-			'package' => 'view'
-		],
-		[
-			'directory' => '/src/View/{{singular_capitalize}}',
-			'src' => 'singular.jext',
-			'dest' => 'HtmlView.php',
-			'client' => 'site',
-			'package' => 'view'
-		],
-		[
-			'directory' => '/src/Controller',
-			'src' => 'pluralController.jext',
 			'dest' => '{{plural_capitalize}}Controller.php',
 			'client' => 'site',
 			'package' => 'view'
 		],
 		[
-			'directory' => '/src/Model',
-			'src' => 'pluralModel.jext',
+			'path' => '/src/Model',
+			'src' => 'plural.jext',
 			'dest' => '{{plural_capitalize}}Model.php',
 			'client' => 'site',
 			'package' => 'view'
 		],
 		[
-			'directory' => '/src/Model',
-			'src' => 'singularModel.jext',
+			'path' => '/src/Model',
+			'src' => 'singular.jext',
 			'dest' => '{{singular_capitalize}}Model.php',
 			'client' => 'site',
 			'package' => 'view'

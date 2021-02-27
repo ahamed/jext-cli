@@ -162,15 +162,15 @@ class ViewController extends BaseController implements ControllerInterface
 	 */
 	private function hasComponent(string $component) : bool
 	{
-		$path = '';
-		$client = $this->getValue('client');
-		$path = \in_array($client, ['--front', '-f'])
-			? 'components'
-			: 'administrator/components';
+		$adminPath = $this->workingDirectory
+			. '/administrator/components/com_' . $component;
+		$sitePath = $this->workingDirectory
+			. '/components/com_' . $component;
+		$client = $this->mapClient($this->getValue('client'));
 
-		$directory = $this->workingDirectory . '/' . $path . '/com_' . $component;
-
-		return \file_exists($directory);
+		return $client === 'both'
+			? (\file_exists($adminPath) || \file_exists($sitePath))
+			: ($client === 'administrator' ? \file_exists($adminPath) : \file_exists($sitePath));
 	}
 
 	/**
@@ -184,18 +184,17 @@ class ViewController extends BaseController implements ControllerInterface
 	 */
 	private function hasView(string $view) : bool
 	{
-		$path = '';
-		$client = $this->getValue('client');
-		$path = \in_array($client, ['--front', '-f'])
-			? 'components'
-			: 'administrator/components';
-
-		$directory = $this->workingDirectory
-			. '/' . $path . '/'
-			. 'com_' . $this->getValue('component')
+		$adminPath = $this->workingDirectory
+			. '/administrator/components/com_' . $this->getValue('component')
 			. '/tmpl/' . $view;
+		$sitePath = $this->workingDirectory
+			. '/components/com_' . $this->getValue('component')
+			. '/tmpl/' . $view;
+		$client = $this->mapClient($this->getValue('client'));
 
-		return \file_exists($directory);
+		return $client === 'both'
+			? (\file_exists($adminPath) || \file_exists($sitePath))
+			: ($client === 'administrator' ? \file_exists($adminPath) : \file_exists($sitePath));
 	}
 
 	/**
@@ -225,6 +224,9 @@ class ViewController extends BaseController implements ControllerInterface
 	{
 		switch($client)
 		{
+			case '-bt':
+			case '--both':
+				return 'both';
 			case '-f':
 			case '--front':
 				return 'site';
@@ -287,7 +289,7 @@ class ViewController extends BaseController implements ControllerInterface
 		{
 			Printer::print(
 				\sprintf(
-					"The view `%s` exists in the component `%s`. Do you want to overwrite it? [" .
+					"The view `%s` exists in the component `%s`. Do you want to overwrite it? (yes/no) [" .
 					Printer::getColorizeMessage("no", 'yellow') . "]: ", $singular, $component
 				)
 			);
@@ -321,30 +323,72 @@ class ViewController extends BaseController implements ControllerInterface
 	private function createView()
 	{
 		$sourceMap = SourceMap::getSourceMap(SourceMap::VIEW_MAP);
-		$cliRoot = __DIR__ . '/../Assets/view';
-		$componentRoot = $this->workingDirectory
-			. (\in_array($this->getValue('client'), ['-f', '--front']) ? '/components' : '/administrator/components')
-			. '/com_' . $this->getValue('component');
+		$flags = ['administrator' => false, 'site' => false];
+		$cliRoot = __DIR__ . '/../Assets';
+		$extensionRoot = $this->workingDirectory;
 
 		$parser = new SourceParser;
 		$meta = $this->getMeta();
 		$parser->setMeta($meta);
 
+		$client = $this->mapClient($this->getValue('client'));
+		$component = ComponentHelper::getModifiedName($this->getValue('component'), 'prefix');
+
 		foreach ($sourceMap as $map)
 		{
-			if ($map['client'] === $this->mapClient($this->getValue('client')))
-			{
-				$src = $cliRoot . '/' . $this->mapClient($this->getValue('client')) . '/' . $map['src'];
-				$dest = $componentRoot . ComponentHelper::parseContent($map['directory'], $meta);
+			$srcPath = $cliRoot . '/'
+				. $map['package'] . '/'
+				. $map['client'] . $map['path'];
+			$srcPath = rtrim($srcPath, '/');
 
-				if (!\file_exists($dest))
+			$destinationPath = $extensionRoot;
+
+			if ($map['client'] === 'administrator')
+			{
+				if ($client !== 'both' && $client === 'site')
 				{
-					mkdir($dest, 0755, true);
+					continue;
 				}
 
-				$parser->src($src)
-					->dest($dest . '/' . ComponentHelper::parseContent($map['dest'], $meta))
-					->parse();
+				if (!$flags['administrator'])
+				{
+					Printer::println(Printer::getColorizeMessage("Creating administrator view files...", 'cyan'));
+					$flags['administrator'] = true;
+				}
+
+				$destinationPath .= '/administrator/components/' . $component;
+			}
+			else
+			{
+				if ($client !== 'both' && $client === 'administrator')
+				{
+					continue;
+				}
+
+				if (!$flags['site'])
+				{
+					Printer::println(Printer::getColorizeMessage("Creating site view files...", 'cyan'));
+					$flags['site'] = true;
+				}
+
+				$destinationPath .= '/components/' . $component;
+			}
+
+			$destinationPath .= $map['path'];
+			$destinationPath = rtrim($destinationPath, '/');
+			$destinationPath = ComponentHelper::parseContent($destinationPath, $meta);
+
+			if (!\file_exists($destinationPath))
+			{
+				mkdir($destinationPath, 0755, true);
+			}
+
+			if (!empty($map['src']) && !empty($map['dest']))
+			{
+				$src = $srcPath . '/' . $map['src'];
+				$dest = $destinationPath . '/' . $map['dest'];
+				$dest = ComponentHelper::parseContent($dest, $meta);
+				$parser->src($src)->dest($dest)->parse();
 			}
 		}
 	}
@@ -362,15 +406,17 @@ class ViewController extends BaseController implements ControllerInterface
 		$cliRoot = __DIR__ . '/../Assets/injection';
 		$componentRoot = $this->workingDirectory;
 
-		$parser = new InjectionParser;
 		$meta = $this->getMeta();
+		$client = $this->mapClient($this->getValue('client'));
+
+		$parser = new InjectionParser;
 		$parser->setMeta($meta);
 
 		foreach ($sourceMap as $map)
 		{
-			if ($map['client'] === $this->mapClient($this->getValue('client')))
+			if ($client === 'both' || $map['client'] === $client)
 			{
-				$src = $cliRoot . '/' . $this->mapClient($this->getValue('client')) . '/' . $map['src'];
+				$src = $cliRoot . '/' . $map['client'] . '/' . $map['src'];
 				$dest = $componentRoot . ComponentHelper::parseContent($map['directory'], $meta);
 
 				$parser->setType($map['type'])
@@ -379,6 +425,9 @@ class ViewController extends BaseController implements ControllerInterface
 					->parse();
 			}
 		}
+
+		Printer::println();
+		Printer::println(Printer::getColorizeMessage('Injection completed.', 'green'));
 	}
 
 	/**
@@ -394,21 +443,22 @@ class ViewController extends BaseController implements ControllerInterface
 	{
 		$client = isset($args[2]) ? $args[2] : '--back';
 
-		if (!\in_array($client, ['--back', '-b', '--front', '-f']))
+		if (!\in_array($client, ['--back', '-b', '--front', '-f', '-bt', '--both']))
 		{
 			Printer::println();
 			Printer::println(Printer::getColorizeMessage(sprintf("The %s command does not exists!", $client), 'red'));
 			Printer::println();
-			Printer::println(Printer::getColorizeMessage('jext-cli --view [-b|--back] [-f|--front]', 'green'));
+			Printer::println(Printer::getColorizeMessage('jext-cli --view [-b|--back] [-f|--front] [-bt|--both]', 'green'));
 			exit;
 		}
 
 		$this->setValue('client', $client);
 		$this->readRequiredValues();
 
-		Printer::println(Printer::getColorizeMessage("Creating view files...", 'green'));
+		Printer::println(Printer::getColorizeMessage("Creating view files...", 'cyan'));
 		$this->createView();
 
+		Printer::println(Printer::getColorizeMessage('Injecting view codes into respective files...', 'cyan'));
 		$this->injectViewContents();
 	}
 }

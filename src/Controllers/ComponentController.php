@@ -191,7 +191,6 @@ class ComponentController extends BaseController implements ControllerInterface
 			{
 				if (!$flags['component'])
 				{
-					// Printer::println();
 					Printer::println(Printer::getColorizeMessage("Creating component administrator and site files...", 'cyan'));
 					$flags['component'] = true;
 				}
@@ -211,7 +210,6 @@ class ComponentController extends BaseController implements ControllerInterface
 			{
 				if (!$flags['language'])
 				{
-					// Printer::println();
 					Printer::println(Printer::getColorizeMessage("Creating component language files...", 'cyan'));
 					$flags['language'] = true;
 				}
@@ -229,7 +227,6 @@ class ComponentController extends BaseController implements ControllerInterface
 			{
 				if (!$flags['media'])
 				{
-					// Printer::println();
 					Printer::println(Printer::getColorizeMessage("Creating component media files...", 'cyan'));
 					$flags['media'] = true;
 				}
@@ -294,7 +291,7 @@ class ComponentController extends BaseController implements ControllerInterface
 		if (\file_exists($componentPath))
 		{
 			Printer::print(
-				"The component exists in your project. Do you want to overwrite it? ["
+				"The component exists in your project. Do you want to overwrite it? (yes/no) ["
 				. Printer::getColorizeMessage("no", 'yellow') . "]: "
 			);
 			$stdin = fopen("php://stdin", 'r');
