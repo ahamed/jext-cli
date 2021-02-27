@@ -170,131 +170,98 @@ class ComponentController extends BaseController implements ControllerInterface
 	 */
 	private function createComponentFiles()
 	{
-		$sourceMap = SourceMap::getSourceMap();
+		$flags = ['component' => false, 'language' => false, 'media' => false];
+		$sourceMap = SourceMap::getSourceMap(SourceMap::COMPONENT_MAP);
 
-		$cliRoot = __DIR__ . '/../Assets/';
-		$componentRoot = $this->workingDirectory;
-
-		$parser = new SourceParser;
-
-		foreach ($sourceMap as $map)
-		{
-			if ($map['package'] !== 'component')
-			{
-				continue;
-			}
-
-			$destDirectory = $componentRoot . '/'
-				. ($map['client'] === 'administrator' ? 'administrator/components/' : 'components/')
-				. ComponentHelper::getModifiedName($this->name, 'prefix')
-				. rtrim($map['directory'], '/');
-			$destDirectory = rtrim($destDirectory, '/');
-
-			if (!\file_exists($destDirectory))
-			{
-				mkdir($destDirectory, 0755, true);
-			}
-
-			if (empty($map['src']) || empty($map['src']))
-			{
-				continue;
-			}
-
-			$src = $cliRoot . $map['client'] . rtrim($map['directory'], '/') . '/' . $map['src'];
-			$dest = ComponentHelper::parseContent($destDirectory . '/' . $map['dest'], $this->meta);
-			$parser->src($src)->dest($dest)->parse();
-		}
-	}
-
-	/**
-	 * Create Language files
-	 *
-	 * @return	void
-	 *
-	 * @since	1.0.0
-	 */
-	private function createLanguageFiles() : void
-	{
-		$sourceMap = SourceMap::getSourceMap();
-
-		$cliRoot = __DIR__ . '/../Assets/language/';
-		$componentRoot = $this->workingDirectory;
+		$cliRoot = __DIR__ . '/../Assets';
+		$extensionRoot = $this->workingDirectory;
 
 		$parser = new SourceParser;
 
 		foreach ($sourceMap as $map)
 		{
-			if ($map['package'] !== 'language')
+			$srcPath = $cliRoot . '/'
+				. $map['package'] . '/'
+				. $map['client'] . $map['path'];
+			$srcPath = rtrim($srcPath, '/');
+
+			$destinationPath = $extensionRoot;
+
+			if ($map['package'] === 'component')
+			{
+				if (!$flags['component'])
+				{
+					// Printer::println();
+					Printer::println(Printer::getColorizeMessage("Creating component administrator and site files...", 'cyan'));
+					$flags['component'] = true;
+				}
+
+				if ($map['client'] === 'administrator')
+				{
+					$destinationPath .= '/administrator/components/';
+				}
+				else
+				{
+					$destinationPath .= '/components/';
+				}
+
+				$destinationPath .= ComponentHelper::getModifiedName($this->name, 'prefix');
+			}
+			elseif ($map['package'] === 'language')
+			{
+				if (!$flags['language'])
+				{
+					// Printer::println();
+					Printer::println(Printer::getColorizeMessage("Creating component language files...", 'cyan'));
+					$flags['language'] = true;
+				}
+
+				if ($map['client'] === 'administrator')
+				{
+					$destinationPath .= '/administrator/language/en-GB/';
+				}
+				else
+				{
+					$destinationPath .= '/language/en-GB/';
+				}
+			}
+			elseif ($map['package'] === 'media')
+			{
+				if (!$flags['media'])
+				{
+					// Printer::println();
+					Printer::println(Printer::getColorizeMessage("Creating component media files...", 'cyan'));
+					$flags['media'] = true;
+				}
+
+				$destinationPath .= '/media/' . ComponentHelper::getModifiedName($this->name, 'prefix');
+			}
+			else
 			{
 				continue;
 			}
 
-			$destDirectory = $componentRoot . '/'
-				. ($map['client'] === 'administrator' ? 'administrator/language/en-GB' : 'language/en-GB')
-				. rtrim($map['directory'], '/');
-			$destDirectory = rtrim($destDirectory, '/');
+			$destinationPath .= $map['path'];
+			$destinationPath = rtrim($destinationPath, '/');
 
-			if (!\file_exists($destDirectory))
+			/** If directory not exists then create it. */
+			if (!\file_exists($destinationPath))
 			{
-				mkdir($destDirectory, 0755, true);
+				mkdir($destinationPath, 0755, true);
 			}
 
-			if (empty($map['src']) || empty($map['src']))
+			if ($map['src'] && $map['dest'])
 			{
-				continue;
-			}
+				$src = $srcPath . '/' . $map['src'];
+				$src = ComponentHelper::parseContent($src, $this->meta);
 
-			$src = $cliRoot . $map['client'] . rtrim($map['directory'], '/') . '/' . $map['src'];
-			$dest = ComponentHelper::parseContent($destDirectory . '/' . $map['dest'], $this->meta);
-			$parser->src($src)->dest($dest)->parse();
+				$dest = $destinationPath . '/' . $map['dest'];
+				$dest = ComponentHelper::parseContent($dest, $this->meta);
+
+				$parser->src($src)->dest($dest)->parse();
+			}
 		}
 	}
-
-	/**
-	 * Create media files.
-	 *
-	 * @return	void
-	 *
-	 * @since	1.0.0
-	 */
-	public function createMediaFiles()
-	{
-		$sourceMap = SourceMap::getSourceMap();
-
-		$cliRoot = __DIR__ . '/../Assets/media/';
-		$componentRoot = $this->workingDirectory;
-
-		$parser = new SourceParser;
-
-		foreach ($sourceMap as $map)
-		{
-			if ($map['package'] !== 'media')
-			{
-				continue;
-			}
-
-			$destDirectory = $componentRoot . '/media/'
-				. ComponentHelper::getModifiedName($this->name, 'prefix')
-				. rtrim($map['directory'], '/');
-
-			$destDirectory = rtrim($destDirectory, '/');
-
-			if (!\file_exists($destDirectory))
-			{
-				mkdir($destDirectory, 0755, true);
-			}
-
-			if (empty($map['src']) || empty($map['src']))
-			{
-				continue;
-			}
-
-			$src = $cliRoot . rtrim($map['directory'], '/') . '/' . $map['src'];
-			$dest = ComponentHelper::parseContent($destDirectory . '/' . $map['dest'], $this->meta);
-			$parser->src($src)->dest($dest)->parse();
-		}
-	}
-
 
 	/**
 	 * The run function for the controller which is responsible for running a command.
@@ -342,7 +309,7 @@ class ComponentController extends BaseController implements ControllerInterface
 
 		$this->printAsciiLogo();
 
-		Printer::println(Printer::getColorizeMessage("(C) Sajeeb Ahamed, All rights reserved.", 'purple'));
+		Printer::println(Printer::getColorizeMessage("(C) Sajeeb Ahamed, All rights reserved.", 'cyan'));
 
 		Printer::println();
 		Printer::println("Welcome to JEXT-CLI component builder tool. Please provide the asking information:");
@@ -350,13 +317,7 @@ class ComponentController extends BaseController implements ControllerInterface
 
 		$this->createComponentMeta();
 
-		Printer::println(Printer::getColorizeMessage("Creating component core files...", 'purple'));
+		Printer::println(Printer::getColorizeMessage("Creating component core files...", 'cyan'));
 		$this->createComponentFiles();
-
-		Printer::println(Printer::getColorizeMessage("Creating component language files...", 'purple'));
-		$this->createLanguageFiles();
-
-		Printer::println(Printer::getColorizeMessage("Creating component media files...", 'purple'));
-		$this->createMediaFiles();
 	}
 }
