@@ -44,7 +44,8 @@ class HelpController extends BaseController implements ControllerInterface
 			Printer::getColorizeMessage("\t-v, --view <name> [-b, --back]", 'green') . "\tCreate View with name and backend view flag"
 		);
 		Printer::println(
-			Printer::getColorizeMessage("\t-v, --view <name> [-bt, --both]", 'green') . "\tCreate View with name and both frontend and backend view flag"
+			Printer::getColorizeMessage("\t-v, --view <name> [-bt, --both]", 'green')
+			. "\tCreate View with name and both frontend and backend view flag"
 		);
 	}
 }
