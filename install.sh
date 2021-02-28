@@ -13,7 +13,7 @@ then
 	sudo rm /usr/local/bin/jext-cli
 fi
 
-sudo ln -s ~/.jext-cli/jext-cli /usr/local/bin/jext-cli
+sudo ln -s ~/.jext-cli/bin/jext-cli /usr/local/bin/jext-cli
 
 tput setaf 2; echo "Installation Completed Successfully!: "$1; tput sgr0;
 tput setaf 3; echo "Welcome to Jext-CLI: "$1; tput sgr0;
