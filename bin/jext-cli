@@ -9,5 +9,4 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use Ahamed\Jext\Application;
 
-$app = new Application();
-$app->runCommand($argv);
+(new Application)->runCommand($argv);
