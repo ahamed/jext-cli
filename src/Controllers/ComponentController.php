@@ -14,6 +14,7 @@ use Ahamed\Jext\Parsers\SourceParser;
 use Ahamed\Jext\Utils\ComponentHelper;
 use Ahamed\Jext\Utils\Printer;
 use Ahamed\Jext\Utils\SourceMap;
+use Exception;
 
 /**
  * Create the component controller.
@@ -131,12 +132,13 @@ class ComponentController extends BaseController implements ControllerInterface
 			'description' => $description,
 			'namespace' => $namespace,
 			'singular' => 'note',
-			'plural' => 'notes'
+			'plural' => 'notes',
+			'views' => ['back' => ['note', 'notes'], 'front' => ['note', 'notes']]
 		];
 
 		foreach ($this->meta as $key => $value)
 		{
-			$this->meta[$key] = $this->sanitizeInput($value);
+			$this->meta[$key] = \is_string($value) ? $this->sanitizeInput($value) : $value;
 		}
 
 		Printer::println(Printer::getColorizeMessage(\json_encode($this->meta, JSON_PRETTY_PRINT), 'green'));
@@ -150,7 +152,7 @@ class ComponentController extends BaseController implements ControllerInterface
 		if ($confirmation === 'yes')
 		{
 			Printer::println(Printer::getColorizeMessage("Generating the component metadata...", 'purple'));
-			\file_put_contents($this->workingDirectory . '/jext.json', \json_encode($this->meta, JSON_UNESCAPED_SLASHES));
+			$this->setMeta($this->meta, $this->getName(), true);
 			Printer::println(Printer::getColorizeMessage("Metadata generation completed.", 'green'));
 		}
 		else
@@ -172,6 +174,7 @@ class ComponentController extends BaseController implements ControllerInterface
 	{
 		$flags = ['component' => false, 'language' => false, 'media' => false];
 		$sourceMap = SourceMap::getSourceMap(SourceMap::COMPONENT_MAP);
+		$metaData = $this->getMeta($this->name);
 
 		$cliRoot = __DIR__ . '/../Assets';
 		$extensionRoot = $this->workingDirectory;
@@ -250,12 +253,12 @@ class ComponentController extends BaseController implements ControllerInterface
 			if ($map['src'] && $map['dest'])
 			{
 				$src = $srcPath . '/' . $map['src'];
-				$src = ComponentHelper::parseContent($src, $this->meta);
+				$src = ComponentHelper::parseContent($src, $metaData);
 
 				$dest = $destinationPath . '/' . $map['dest'];
-				$dest = ComponentHelper::parseContent($dest, $this->meta);
+				$dest = ComponentHelper::parseContent($dest, $metaData);
 
-				$parser->src($src)->dest($dest)->parse();
+				$parser->setMeta($metaData)->src($src)->dest($dest)->parse();
 			}
 		}
 	}

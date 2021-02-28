@@ -80,13 +80,14 @@ class ViewController extends BaseController implements ControllerInterface
 	/**
 	 * Override the getMeta function.
 	 *
+	 * @param	string	$component	The component name.
 	 * @return	array	The meta data array.
 	 *
 	 * @since	1.0.0
 	 */
-	protected function getMeta(): array
+	protected function getMeta(string $component = '') : array
 	{
-		$meta = parent::getMeta();
+		$meta = parent::getMeta($component);
 
 		$meta['singular'] = $this->getValue('singular');
 		$meta['plural'] = $this->getValue('plural');
@@ -328,7 +329,7 @@ class ViewController extends BaseController implements ControllerInterface
 		$extensionRoot = $this->workingDirectory;
 
 		$parser = new SourceParser;
-		$meta = $this->getMeta();
+		$meta = $this->getMeta($this->getValue('component'));
 		$parser->setMeta($meta);
 
 		$client = $this->mapClient($this->getValue('client'));
@@ -406,7 +407,7 @@ class ViewController extends BaseController implements ControllerInterface
 		$cliRoot = __DIR__ . '/../Assets/injection';
 		$componentRoot = $this->workingDirectory;
 
-		$meta = $this->getMeta();
+		$meta = $this->getMeta($this->getValue('component'));
 		$client = $this->mapClient($this->getValue('client'));
 
 		$parser = new InjectionParser;

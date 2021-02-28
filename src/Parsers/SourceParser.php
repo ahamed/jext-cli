@@ -68,13 +68,15 @@ class SourceParser
 	 *
 	 * @param	array	$data	The meta data.
 	 *
-	 * @return	void
+	 * @return	SourceParser
 	 *
 	 * @since	1.0.0
 	 */
-	public function setMeta(array $data) : void
+	public function setMeta(array $data) : SourceParser
 	{
 		$this->meta = $data;
+
+		return $this;
 	}
 
 	/**

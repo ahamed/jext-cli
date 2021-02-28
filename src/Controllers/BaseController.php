@@ -89,11 +89,13 @@ class BaseController
 	/**
 	 * Get the meta datum.
 	 *
+	 * @param	string	$component	The component name.
+	 *
 	 * @return	array	The meta data array.
 	 *
 	 * @since	1.0.0
 	 */
-	protected function getMeta() : array
+	protected function getMeta(string $component = '') : array
 	{
 		$metaPath = $this->workingDirectory . '/jext.json';
 
@@ -106,6 +108,36 @@ class BaseController
 			throw new \Exception('You are too early to get the meta data or the `jext.json` file has been deleted!');
 		}
 
-		return $this->meta;
+		return !empty($component) ? $this->meta[$component] : $this->meta;
+	}
+
+	/**
+	 * Set meta data and write to the jext.json file.
+	 *
+	 * @param	array	$data		The meta array.
+	 * @param	string	$component	If data write into a specific component.
+	 * @param	bool	$replace	If the jext data need to be completely replaced.
+	 *
+	 * @return	void
+	 *
+	 * @since	1.0.0
+	 */
+	protected function setMeta(array $data, string $component, $replace = false) : void
+	{
+		try
+		{
+			$meta = $this->getMeta();
+		}
+		catch (\Exception $e)
+		{
+			$meta = [];
+		}
+
+		$meta[$component] = $meta[$component] ?? [];
+		$meta[$component] = $replace
+			? array_merge($meta[$component], $data)
+			: $data;
+
+		\file_put_contents($this->workingDirectory . '/jext.json', \json_encode($meta, JSON_UNESCAPED_SLASHES));
 	}
 }
