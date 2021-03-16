@@ -20,7 +20,7 @@ You need to `PHP CLI` and `composer` are installed in your machine before procee
 **Note: These processes are only for Linux or MacOs. For Windows these are not working.**
 
 #### Steps:
-1. Clone the repository using git `git clone https://github.com/ahamed/jext-cli.git` **or** [Download Zip](https://github.com/ahamed/jext-cli/archive/main.zip) from github.
+1. Clone the repository using git `git clone https://github.com/ahamed/jext-cli.git` **or** [Download Zip](https://github.com/ahamed/jext-cli/archive/v1.0.0-beta.1.zip) from github.
 2. Extract the zip file.
 3. Go to the directory, run `cd jext-cli`
 4. Install project dependencies, run `composer install`
