@@ -58,7 +58,7 @@ class Application
 	 *
 	 * @since	1.0.0
 	 */
-	public function runCommand(array $argv = [])
+	public function run(array $argv = [])
 	{
 		$command = $argv[1] ?? $this->defaultCommand;
 

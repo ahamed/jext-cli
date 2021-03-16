@@ -7,6 +7,5 @@ if (php_sapi_name() !== 'cli') {
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use Ahamed\Jext\Application;
-
-(new Application)->runCommand($argv);
+/** Run the application. */
+(new Ahamed\Jext\Application)->run($argv);

@@ -18,9 +18,6 @@
 			"Ahamed\\Jext\\": "src/"
 		}
 	},
-	"require": {
-		"php": "^7.3"
-	},
 	"require-dev": {
 		"squizlabs/php_codesniffer": "*"
 	}
