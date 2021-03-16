@@ -94,7 +94,7 @@ ___For more information run `jext-cli --help` or `jext-cli -h` or just `jext-cli
 For contribution-
 1. Fork the repository.
 2. Clone the forked repository to your local machine.
-3. Create a new branch from the `master` branch, e.g. `git checkout -b new_branch`. [Note never work at master if you plan to contribute. Never means never.]
+3. Create a new branch from the `main` branch, e.g. `git checkout -b new_branch`. [Note never work at main if you plan to contribute. Never means never.]
 4. Commit your changes and push to your remote.
 5. Make a pull request (PR) to this repository.
 
