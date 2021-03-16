@@ -64,6 +64,8 @@ jext-cli [--component|-c] <name>
 
 **Note:** By default `jext-cli --component <name>` command creates a component with two default views. One for creating `Notes` and another for showing the list of `Icomoon` icons with live search facilities.
 
+**Note: I recommend you to add the required views first before discovering and installing the component. Because if you add all the views and then go to Discover and install the component then you will get all the views as the submenu to the left sidebar. Otherwise you have to populate the database for making submenus.**
+
 ### Creating a view to a component:
 You can also create a view to a component. One view comes with all the respective `Controller`, `Model` and `View` files.
 
