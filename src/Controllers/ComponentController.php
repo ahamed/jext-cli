@@ -55,6 +55,13 @@ class ComponentController extends BaseController implements ControllerInterface
 	 */
 	public function setName(string $name)
 	{
+		$name = strtolower($name);
+
+		if (stripos($name, 'com_') === 0)
+		{
+			$name = substr($name, 4);
+		}
+
 		$this->name = $name;
 	}
 
@@ -82,7 +89,7 @@ class ComponentController extends BaseController implements ControllerInterface
 		$stdin = fopen("php://stdin", 'r');
 		$currentUser = exec('whoami');
 		$currentYear = (new \DateTime)->format('Y');
-		$defaultNamespace = ComponentHelper::generateComponentNamespace($this->name);
+		$defaultNamespace = ComponentHelper::generateComponentNamespace($this->getName());
 
 		Printer::print("Author Name [" . Printer::getColorizeMessage($currentUser, 'yellow') . "]: ");
 		$author = trim(fgets($stdin));
@@ -121,7 +128,7 @@ class ComponentController extends BaseController implements ControllerInterface
 		Printer::println();
 
 		$this->meta = [
-			'name' => $this->name,
+			'name' => $this->getName(),
 			'author' => $author,
 			'creationDate' => $creationDate,
 			'copyright' => $copyright,
@@ -174,7 +181,7 @@ class ComponentController extends BaseController implements ControllerInterface
 	{
 		$flags = ['component' => false, 'language' => false, 'media' => false];
 		$sourceMap = SourceMap::getSourceMap(SourceMap::COMPONENT_MAP);
-		$metaData = $this->getMeta($this->name);
+		$metaData = $this->getMeta($this->getName());
 
 		$cliRoot = __DIR__ . '/../Assets';
 		$extensionRoot = $this->workingDirectory;
@@ -207,7 +214,7 @@ class ComponentController extends BaseController implements ControllerInterface
 					$destinationPath .= '/components/';
 				}
 
-				$destinationPath .= ComponentHelper::getModifiedName($this->name, 'prefix');
+				$destinationPath .= ComponentHelper::getModifiedName($this->getName(), 'prefix');
 			}
 			elseif ($map['package'] === 'language')
 			{
@@ -234,7 +241,7 @@ class ComponentController extends BaseController implements ControllerInterface
 					$flags['media'] = true;
 				}
 
-				$destinationPath .= '/media/' . ComponentHelper::getModifiedName($this->name, 'prefix');
+				$destinationPath .= '/media/' . ComponentHelper::getModifiedName($this->getName(), 'prefix');
 			}
 			else
 			{
@@ -289,7 +296,7 @@ class ComponentController extends BaseController implements ControllerInterface
 
 		$this->setName($name);
 
-		$componentPath = $this->workingDirectory . '/administrator/components/' . ComponentHelper::getModifiedName($this->name, 'prefix');
+		$componentPath = $this->workingDirectory . '/administrator/components/' . ComponentHelper::getModifiedName($this->getName(), 'prefix');
 
 		if (\file_exists($componentPath))
 		{

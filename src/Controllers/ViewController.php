@@ -107,6 +107,8 @@ class ViewController extends BaseController implements ControllerInterface
 	 */
 	public function setValue(string $name, string $value)
 	{
+		$value = strtolower($value);
+
 		switch ($name)
 		{
 			case 'singular':
@@ -116,6 +118,7 @@ class ViewController extends BaseController implements ControllerInterface
 				$this->plural = $value;
 				break;
 			case 'component':
+				$value = stripos($value, 'com_') ? substr($value, 4) : $value;
 				$this->componentName = $value;
 				break;
 			case 'client':
