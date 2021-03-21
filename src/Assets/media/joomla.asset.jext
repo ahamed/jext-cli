@@ -6,28 +6,10 @@
 	"license": "{{license}}",
 	"assets": [
 		{
-			"name": "{{prefix_component}}.icons",
-			"type": "script",
-			"uri": "{{prefix_component}}/icons.js",
-			"dependencies": ["core"],
-			"attributes": {
-				"defer": true
-			}
-		},
-		{
-			"name": "{{prefix_component}}.icons",
-			"type": "style",
-			"uri": "{{prefix_component}}/icons.css"
-		},
-		{
-			"name": "{{prefix_component}}.notes",
-			"type": "style",
-			"uri": "{{prefix_component}}/notes.css"
-		},
-		{
 			"name": "{{prefix_component}}.styles",
 			"type": "style",
 			"uri": "{{prefix_component}}/styles.css"
-		}
+		},
+		//{{inject: components_view_assets}}
 	]
 }

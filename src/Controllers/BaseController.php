@@ -134,7 +134,7 @@ class BaseController
 		}
 
 		$meta[$component] = $meta[$component] ?? [];
-		$meta[$component] = $replace
+		$meta[$component] = !$replace
 			? array_merge($meta[$component], $data)
 			: $data;
 

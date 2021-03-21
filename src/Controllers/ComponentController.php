@@ -10,11 +10,11 @@ namespace Ahamed\Jext\Controllers;
 
 use Ahamed\Jext\Controllers\BaseController;
 use Ahamed\Jext\Interfaces\ControllerInterface;
+use Ahamed\Jext\Parsers\InjectionParser;
 use Ahamed\Jext\Parsers\SourceParser;
 use Ahamed\Jext\Utils\ComponentHelper;
 use Ahamed\Jext\Utils\Printer;
 use Ahamed\Jext\Utils\SourceMap;
-use Exception;
 
 /**
  * Create the component controller.
@@ -33,13 +33,34 @@ class ComponentController extends BaseController implements ControllerInterface
 	private $name;
 
 	/**
+	 * Flag variable mentioning if the component created with the sample views or not.
+	 * The sample views are icomoon and notes
+	 *
+	 * @var		bool	$withViews	This is self explanatory. By default this is false.
+	 *
+	 * @since	1.0.0
+	 */
+	private $withViews;
+
+	/**
+	 * Sample views with the component.
+	 *
+	 * @var		array	$sampleViews	The names of the sample views.
+	 *
+	 * @since	1.0.0
+	 */
+	private $sampleViews = [];
+
+	/**
 	 * ComponentController constructor function.
 	 *
 	 * @since	1.0.0
 	 */
 	public function __construct()
 	{
-		$this->name = '';
+		$this->name = null;
+		$this->withViews = true;
+		$this->sampleViews = ['icomoon', 'note'];
 
 		parent::__construct();
 	}
@@ -53,7 +74,7 @@ class ComponentController extends BaseController implements ControllerInterface
 	 *
 	 * @since	1.0.0
 	 */
-	public function setName(string $name)
+	public function setName(string $name) : void
 	{
 		$name = strtolower($name);
 
@@ -72,9 +93,56 @@ class ComponentController extends BaseController implements ControllerInterface
 	 *
 	 * @since	1.0.0
 	 */
-	public function getName()
+	public function getName() : string
 	{
 		return $this->name;
+	}
+
+	/**
+	 * public set flag with view.
+	 *
+	 * @param	string	$arg	The argument value.
+	 *
+	 * @return	void
+	 *
+	 * @since	1.0.0
+	 */
+	public function setWithViewFlag(string $arg) : void
+	{
+		if (!isset($arg))
+		{
+			return;
+		}
+
+		$arg = strtolower($arg);
+		$arg = preg_replace("@\s+@", '', $arg);
+
+		if ($arg === '--no-sample-view')
+		{
+			$this->withViews = false;
+		}
+		else
+		{
+			Printer::println(
+				Printer::getColorizeMessage(
+					\sprintf('Invalid argument "%s". You are allowed only "--no-sample-view" as third argument.', $arg),
+					'red'
+				)
+			);
+			exit;
+		}
+	}
+
+	/**
+	 * Get with view flag.
+	 *
+	 * @return	bool	The flag value.
+	 *
+	 * @since	1.0.0
+	 */
+	public function getWithViewFlag() : bool
+	{
+		return $this->withViews;
 	}
 
 	/**
@@ -84,7 +152,7 @@ class ComponentController extends BaseController implements ControllerInterface
 	 *
 	 * @since	1.0.0
 	 */
-	private function createComponentMeta()
+	private function createComponentMeta() : void
 	{
 		$stdin = fopen("php://stdin", 'r');
 		$currentUser = exec('whoami');
@@ -139,9 +207,14 @@ class ComponentController extends BaseController implements ControllerInterface
 			'description' => $description,
 			'namespace' => $namespace,
 			'singular' => 'note',
-			'plural' => 'notes',
-			'views' => ['back' => ['note', 'notes'], 'front' => ['note', 'notes']]
+			'plural' => 'notes'
 		];
+
+		/** If with view flag set to true then add the views. */
+		if ($this->getWithViewFlag())
+		{
+			$this->meta['views'] = ['back' => ['note', 'notes'], 'front' => ['note', 'notes']];
+		}
 
 		foreach ($this->meta as $key => $value)
 		{
@@ -177,11 +250,12 @@ class ComponentController extends BaseController implements ControllerInterface
 	 *
 	 * @since	1.0.0
 	 */
-	private function createComponentFiles()
+	private function createComponentFiles() : void
 	{
 		$flags = ['component' => false, 'language' => false, 'media' => false];
 		$sourceMap = SourceMap::getSourceMap(SourceMap::COMPONENT_MAP);
 		$metaData = $this->getMeta($this->getName());
+		$createView = $this->getWithViewFlag();
 
 		$cliRoot = __DIR__ . '/../Assets';
 		$extensionRoot = $this->workingDirectory;
@@ -190,6 +264,11 @@ class ComponentController extends BaseController implements ControllerInterface
 
 		foreach ($sourceMap as $map)
 		{
+			if (!$createView && isset($map['type']) && $map['type'] === 'view')
+			{
+				continue;
+			}
+
 			$srcPath = $cliRoot . '/'
 				. $map['package'] . '/'
 				. $map['client'] . $map['path'];
@@ -257,7 +336,7 @@ class ComponentController extends BaseController implements ControllerInterface
 				mkdir($destinationPath, 0755, true);
 			}
 
-			if ($map['src'] && $map['dest'])
+			if (!empty($map['src']) && !empty($map['dest']))
 			{
 				$src = $srcPath . '/' . $map['src'];
 				$src = ComponentHelper::parseContent($src, $metaData);
@@ -268,6 +347,28 @@ class ComponentController extends BaseController implements ControllerInterface
 				$parser->setMeta($metaData)->src($src)->dest($dest)->parse();
 			}
 		}
+	}
+
+	/**
+	 * Inject view assets to the joomla.assets.json file.
+	 *
+	 * @return	void
+	 *
+	 * @since	1.0.0
+	 */
+	private function injectAssets() : void
+	{
+		$src = __DIR__ . '/../Assets/injection/media/asset.jext';
+		$dest = $this->workingDirectory . '/media/' .
+			ComponentHelper::getModifiedName($this->getName(), 'prefix') .
+			'/joomla.asset.json';
+
+		$parser = new InjectionParser;
+		$parser->setMeta($this->getMeta($this->getName()));
+		$parser->setType('components_view_assets')
+			->src($src)
+			->dest($dest)
+			->parse();
 	}
 
 	/**
@@ -282,6 +383,11 @@ class ComponentController extends BaseController implements ControllerInterface
 	public function run(array $args = []) : void
 	{
 		$name = isset($args[2]) ? $args[2] : null;
+		
+		if (isset($args[3]))
+		{
+			$this->setWithViewFlag($args[3]);
+		}
 
 		if (\is_null($name))
 		{
@@ -326,5 +432,11 @@ class ComponentController extends BaseController implements ControllerInterface
 
 		Printer::println(Printer::getColorizeMessage("Creating component core files...", 'cyan'));
 		$this->createComponentFiles();
+
+		if ($this->getWithViewFlag())
+		{
+			Printer::println(Printer::getColorizeMessage('Injecting assets dependencies for the sample views', 'cyan'));
+			$this->injectAssets();
+		}
 	}
 }
