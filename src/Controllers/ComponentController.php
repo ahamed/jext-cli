@@ -36,7 +36,7 @@ class ComponentController extends BaseController implements ControllerInterface
 	 * Flag variable mentioning if the component created with the sample views or not.
 	 * The sample views are icomoon and notes
 	 *
-	 * @var		bool	$withViews	This is self explanatory. By default this is false.
+	 * @var		boolean		$withViews	This is self explanatory. By default this is false.
 	 *
 	 * @since	1.0.0
 	 */
@@ -383,7 +383,7 @@ class ComponentController extends BaseController implements ControllerInterface
 	public function run(array $args = []) : void
 	{
 		$name = isset($args[2]) ? $args[2] : null;
-		
+
 		if (isset($args[3]))
 		{
 			$this->setWithViewFlag($args[3]);
