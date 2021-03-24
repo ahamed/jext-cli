@@ -1,5 +1,6 @@
 # JEXT-CLI
-![jext-cli-low](https://user-images.githubusercontent.com/5783354/112371808-3e0a0c00-8d09-11eb-8925-d09e2a233628.gif)
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/5783354/112374609-84149f00-8d0c-11eb-932f-5d0293a0c774.gif)
+
 
 **JEXT-CLI** is a command line application for creating Joomla! 4 component using just a simple command. This tool will help you to reduce your job for creating a component. It will provide you a boilerplate for Joomla! 4 component.
 
@@ -38,6 +39,7 @@ jext-cli [--component|-c] <name>
 
 + After that you will be asking for-
    + **Author name** (What is the name of the component author. If skip `jext-cli` will take the current username as author name.)
+
    + **Author Email** (The email address of the component author. If skip then it will be empty.)
    + **Author Url** (The author website url, If skip then it will be empty.)
    + **Description** (The component description. If skip then it will be empty.)
