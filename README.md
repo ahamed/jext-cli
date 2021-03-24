@@ -1,23 +1,15 @@
 # JEXT-CLI
-This is the cli tool for creating Joomla component using terminal.
+![jext-cli-low](https://user-images.githubusercontent.com/5783354/112371808-3e0a0c00-8d09-11eb-8925-d09e2a233628.gif)
 
-```php
-_________   _______              _________         _______    _         _________
-\__    _/  (  ____ \  |\     /|  \__   __/        (  ____ \  ( \        \__   __/
-   )  (    | (    \/  ( \   / )     ) (           | (    \/  | (           ) (   
-   |  |    | (__       \ (_) /      | |   _____   | |        | |           | |   
-   |  |    |  __)       ) _ (       | |  (_____)  | |        | |           | |   
-   |  |    | (         / ( ) \      | |           | |        | |           | |   
-|\_)  )    | (____/\  ( /   \ )     | |           | (____/\  | (____/\  ___) (___
-(____/     (_______/  |/     \|     )_(           (_______/  (_______/  \_______/ 
-```
+**JEXT-CLI** is a command line application for creating Joomla! 4 component using just a simple command. This tool will help you to reduce your job for creating a component. It will provide you a boilerplate for Joomla! 4 component.
 
 # Installation
-The installation processes are quit easy. You can install it from the source code.
+The installation processes are too easy. You can install it from the source code.
+
 ### Prerequisite
 You need to `PHP CLI` and `composer` are installed in your machine before proceeding next steps.
 
-**Note: These processes are only for Linux or MacOs. For Windows these are not working.**
+**Note: These processes are only for Linux and macOs. For Windows these may not work.**
 
 #### Steps:
 1. Clone the repository using git `git clone https://github.com/ahamed/jext-cli.git` **or** [Download Zip](https://github.com/ahamed/jext-cli/archive/v1.0.0-beta.1.zip) from github.
@@ -31,7 +23,7 @@ You need to `PHP CLI` and `composer` are installed in your machine before procee
 If no error happens then you are done installing the `jext-cli` tool. Now you can use it globally by your command terminal.
 
 # Usage
-This tool is only for Joomla 4. So you need to-
+This tool is only for Joomla! 4. So you need to-
 1. [Download](https://www.joomla.org/announcements/release-news/5833-joomla-4-0-0-beta7-and-joomla-3-10-alpha5.html) and Install Joomla 4. (Currently Joomla in version 4.0.0-beta.7)
 2. Go to the Joomla! project's root directory, run `cd path/to/the/project/root`
 3. Run `jext-cli --version`, if it shows you the version message then the `jext-cli` is installed correctly in your machine.
@@ -42,8 +34,7 @@ This tool is only for Joomla 4. So you need to-
 jext-cli [--component|-c] <name>
 ```
 
-
-+ For creating a new Joomla! 4 component just run `jext-cli --component <name>`. Here the `<name>` would be replaced by your component name and the name should be without `com_` prefix. If you add the `com_` prefix then don't worry. It would be ignored.
++ For creating a new Joomla! 4 component just run `jext-cli --component <name>`. Here the `<name>` would be replaced by your component name and the name should be without `com_` prefix. If you add the `com_` prefix then don't worry, it will be sanitized.
 
 + After that you will be asking for-
    + **Author name** (What is the name of the component author. If skip `jext-cli` will take the current username as author name.)
@@ -62,7 +53,7 @@ jext-cli [--component|-c] <name>
 + Here you find your newly created component name. Select it and click `Install` from the toolbar button.
 + Go to administrator `sidebar > expand Components > <ComponentName>`
 
-**Note:** By default `jext-cli --component <name>` command creates a component with two default views. One for creating `Notes` and another for showing the list of `Icomoon` icons with live search facilities.
+**Note:** By default `jext-cli --component <name>` command creates a component with two default views. One for creating `Notes` and another for showing the list of `Icomoon` icons with live search facilities. If you don't want these views then add a flag `--no-sample-view` with the create command. So the command would be `jext-cli --component <name> --no-sample-view`
 
 **Note: I recommend you to add the required views first before discovering and installing the component. Because if you add all the views and then go to Discover and install the component then you will get all the views as the submenu to the left sidebar. Otherwise you have to populate the database for making submenus.**
 
@@ -109,8 +100,3 @@ composer run-script phpcs
 
 # Support
 If you get any problems then raise an issue [here](https://github.com/ahamed/jext-cli/issues) or send me at [sajeeb07ahamed@gmail.com](mailto:sajeeb07ahamed@gmail.com) but first option is preferable.
-
-<!-- # Donate
-If you think this project helps you then you can offer me a cup of dark coffee :smile:
-
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](sajeeb07ahamed@gmail.com) -->
