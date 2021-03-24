@@ -1,5 +1,5 @@
 # JEXT-CLI
-![ezgif com-gif-maker](https://user-images.githubusercontent.com/5783354/112374609-84149f00-8d0c-11eb-932f-5d0293a0c774.gif)
+![wideGif](https://user-images.githubusercontent.com/5783354/112375177-2e8cc200-8d0d-11eb-825e-4f9d9560eee9.gif)
 
 
 **JEXT-CLI** is a command line application for creating Joomla! 4 component using just a simple command. This tool will help you to reduce your job for creating a component. It will provide you a boilerplate for Joomla! 4 component.
