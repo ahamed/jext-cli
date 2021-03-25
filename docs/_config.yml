@@ -1,1 +1,5 @@
 theme: jekyll-theme-cayman
+title: "JEXT CLI"
+description: "JEXT CLI is a component builder tool for Joomla! By using this command line tool you can easily build a Joomla! 4 component by just write a simple command."
+show_downloads: "true"
+google_analytics: "G-CY134LGBYY"https://github.com/ahamed/jext-cli/blob/main/docs/_config.yml
