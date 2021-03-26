@@ -6,41 +6,38 @@ Author: Sajeeb Ahamed (sajeeb07ahamemd@gmail.com)
 
 Tags: #joomla, #joomla-component-builder, #joomla-extension-builder, #jext-cli, #php-cli, #cli, #components, #extensions.
 
+Hello, all the Joomla extension developers. Today I am going to share with you a nice CLI application for generating Joomla! 4 components. So, tie your belt, and let's start the journey.
 
-# Installation
-The installation processes are too easy. You can install it from the source code.
+The stable version of Joomla! 4 is going to release very soon. And as it is a major release so there are some major changes that may break your existing extensions. So it would be hard for the developers to upgrade the extensions from Joomla! 3 to 4.
+Now in this statement, you may disagree with me that upgrading from 3 to 4 is not that much hard. If one already makes compatible his/her extension for `3.9.x` then it's easy. I also agree with you. But Joomla! 4 brings a newly organized component structure for you. What if you want to taste the original flavor? You need to do more.
 
-### Prerequisite
-You need to `PHP CLI` and `composer` are installed in your machine before proceeding next steps.
+So, in this situation, I am here to introduce you to a new CLI application. The application helps you to create a component by just running a simple command in the terminal. This will provide you a boilerplate of a structured Joomla! 4 component. 
 
-**Note: These processes are only for Linux and macOs. For Windows these may not work.**
+By using this you can create a new component and also brings your business logic from your existing components after creating a new component (as J4 still provides you MVC structure).
 
-#### Steps:
-1. Clone the repository using git `git clone https://github.com/ahamed/jext-cli.git` **or** [Download Zip](https://github.com/ahamed/jext-cli/archive/v1.0.0-beta.1.zip) from github.
-2. Extract the zip file.
-3. Go to the directory, run `cd jext-cli`
-4. Install project dependencies, run `composer install`
-5. Regenerate the class lists for auto loading, run `composer dump-autoload -o`
-6. Run `chmod +x install.sh` for making the `install.sh` file executable.
-7. Run `./install.sh`, it will ask for the password just type your password and hit enter.
+Here the question is how to use it? It's quite easy. Just follow me-
 
-If no error happens then you are done installing the `jext-cli` tool. Now you can use it globally by your command terminal.
+> For using the `jext-cli` you need **php-cli** and **composer** installed in your machine. The installation is written for Linux & Mac users. For Windows users, this is not going to work.
 
-# Usage
-This tool is only for Joomla! 4. So you need to-
-1. [Download](https://www.joomla.org/announcements/release-news/5833-joomla-4-0-0-beta7-and-joomla-3-10-alpha5.html) and Install Joomla 4. (Currently Joomla in version 4.0.0-beta.7)
-2. Go to the Joomla! project's root directory, run `cd path/to/the/project/root`
-3. Run `jext-cli --version`, if it shows you the version message then the `jext-cli` is installed correctly in your machine.
+### Installation
+1. Clone the Github repository `git clone https://github.com/ahamed/jext-cli.git`
+2. Navigate to the directory, `cd jext-cli`
+3. Install the project dependencies, `composer install`
+4. Update the auto-loading classes, `composer dump-autoload -o`
+5. Install the CLI tool, `./install.sh` (for macOS & Linux)
+6. Check if the tool is installed, `jext-cli --help`
 
-### Creating a new Joomla! component:
-#### Syntax
-```shell
-jext-cli [--component|-c] <name>
+If you find the manuscript that means the `jext-cli` is installed on your machine globally.
+
+### Usage
+You can create components and views for a component now. For creating a component first navigate to your Joomla! 4 project root directory, `cd path/to/your/project/root`, then run-
+
+```console
+jext-cli --component|-c <component_name>
 ```
+Here, `--component|-c` means any of `--component` or `-c`, and the `<component_name>` is the name of your component. Please don't use a multi-word name as a component name.
 
-+ For creating a new Joomla! 4 component just run `jext-cli --component <name>`. Here the `<name>` would be replaced by your component name and the name should be without `com_` prefix. If you add the `com_` prefix then don't worry, it will be sanitized.
-
-+ After that you will be asking for-
+This command will ask for some basic meta-information. They are-
    + **Author name** (What is the name of the component author. If skip `jext-cli` will take the current username as author name.)
 
    + **Author Email** (The email address of the component author. If skip then it will be empty.)
@@ -52,56 +49,30 @@ jext-cli [--component|-c] <name>
    + **Namespace** (The component's namespace, default `Joomla\Component\<ComponentName>`. Using the default is recommended.)
    + **Do you confirm component creation?** (Hit enter if everything is okay. If not then type `no` and hit enter.)
 
-   Congratulation! You have successfully created your first Joomla! 4 component using `jext-cli` tool.
-+ Now login as administrator to your Joomla! project.
-+ Go to `System > Discover`
-+ Here you find your newly created component name. Select it and click `Install` from the toolbar button.
-+ Go to administrator `sidebar > expand Components > <ComponentName>`
+Fill them up correctly and this will create the component.
 
-**Note:** By default `jext-cli --component <name>` command creates a component with two default views. One for creating `Notes` and another for showing the list of `Icomoon` icons with live search facilities. If you don't want these views then add a flag `--no-sample-view` with the create command. So the command would be `jext-cli --component <name> --no-sample-view`
-
-**Note: I recommend you to add the required views first before discovering and installing the component. Because if you add all the views and then go to Discover and install the component then you will get all the views as the submenu to the left sidebar. Otherwise you have to populate the database for making submenus.**
-
-### Creating a view to a component:
-You can also create a view to a component. One view comes with all the respective `Controller`, `Model` and `View` files.
-
-#### Syntax:
-```shell
-jext-cli --view [-f|--front [-b|--back [-bt|--both]]]
-```
-The third argument is optional. If you skip it then the view is generated for the backend/administrator. If you want the view for frontend then the third argument would be `-f` or `--front`. You can also create a view for both frontend and backend. For that use the third argument as `-bt` or `--both`.
-
-#### Available commands
-1. `jext-cli --view` - for creating a view for the administrator part.
-2. `jext-cli --view -b|--back` - same as command 1.
-3. `jext-cli --view -f|--front` - for creating a view for the frontend.
-4. `jext-cli --view -bt|--both` - for creating a view for both of the administrator or frontend.
-
-This command will ask you for some information.
-- [required] **Component Name** (The component name where to put the view)
-- [required] **View name (Singular)** (The singular name of the view)
-- [optional] **View name (Plural)** (The plural name of the view. The `jext-cli` will predict the plural name from the singular name. If you thing the prediction is correct then hit enter, otherwise enter the plural name.)
-
-Congratulations! You have successfully generated a view.
-
-**Note**: The `jext-cli` assumes that each and every view has a database table. The table name it predicts like- `#__<componentName>_<pluralViewName>`. So check the `administrator/components/<com_componentName>/sql/install.mysql.utf8.sql` file, there your get the sql queries for creating tables. Open your mysql client and create the table to the database.
-
-___For more information run `jext-cli --help` or `jext-cli -h` or just `jext-cli` and hit enter.___
-
-# Contribution
-For contribution-
-1. Fork the repository.
-2. Clone the forked repository to your local machine.
-3. Create a new branch from the `main` branch, e.g. `git checkout -b new_branch`. [Note never work at main if you plan to contribute. Never means never.]
-4. Commit your changes and push to your remote.
-5. Make a pull request (PR) to this repository.
-
-# Test
-Currently `phpcs` testing is integrated. If you interested and make a PR then first make sure that you pass the test of `phpcs`. Testing this is simple, just run-
+_By default, the **JEXT-CLI** creates a component with two sample views. If you don't want to create the views with the component then use `--no-sample-view` flag with it. For example-_
 
 ```console
-composer run-script phpcs
+jext-cli --component <component_name> --no-sample-view
 ```
 
-# Support
-If you get any problems then raise an issue [here](https://github.com/ahamed/jext-cli/issues) or send me at [sajeeb07ahamed@gmail.com](mailto:sajeeb07ahamed@gmail.com) but first option is preferable.
+Here you successfully created your component. Now we know all components have one or more views. The views are categorized into two types. Administrator view and site view. Here the administrator views are called `back` views,  and the site views are called `front` views. For creating a view, the command is-
+
+```console
+jext-cli --view [--back|-b, [--front|-f, [--both|-bt]]]
+```
+
+Here, the  `[--back|-b, [--front|-f, [--both|-bt]]]` means any of the six options. If I describe the options, then they are-
+
+- `--back|-b` means either `--back` or `-b` which stands for the back view or the administrator view.
+- `--front|-f` means either `--front` or `-f` which stands for the front view or the site view.
+- `--both|-bt` means either `--both` or `-bt` stands for both administrator and site views.
+
+After running any of the commands the application asks you the component name. This indicates for which component you are going to create a view.
+
+After putting the valid component name the system will ask you for the view's names. You have to enter two names for a view. One is the singular name and another is the plural name. The `JEXT-CLI` can predict the plural name after you entering the singular name. If you think the prediction is correct then just hit enter otherwise, enter the plural name. That's all for creating a view. All the related (controller, model, view) files are created for you. This also injects the required language strings, SQL queries, and other required codes for making the view functional.
+
+Your view is created. You can create as many views as you need. After creating all the views log in as `administrator` to the project then go to `Settings > Discover`. There you can see the component waits for you to install. Select the component and click the `Install` button from the toolbar.
+
+Hurra! the component has been installed. Now from the sidebar, go to `Components > Your component`. Here you get your views.
