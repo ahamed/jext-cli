@@ -142,18 +142,18 @@ class HtmlView extends BaseHtmlView
 				$childBar->checkin('{{plural}}.checkin')->listCheck(true);
 			}
 
-			if ($this->state->get('filter.published') !== -2)
+			if ((int) $this->state->get('filter.published') !== -2)
 			{
 				$childBar->trash('{{plural}}.trash')->listCheck(true);
 			}
+		}
 
-			if ($this->state->get('filter.published') === -2 && $canDo->get('core.delete'))
-			{
-				$childBar->delete('{{plural}}.delete')
-					->text('JTOOLBAR_EMPTY_TRASH')
-					->message('JGLOBAL_CONFIRM_DELETE')
-					->listCheck(true);
-			}
+		if ((int) $this->state->get('filter.published') === -2 && $canDo->get('core.delete'))
+		{
+			$toolbar->delete('{{plural}}.delete')
+				->text('JTOOLBAR_EMPTY_TRASH')
+				->message('JGLOBAL_CONFIRM_DELETE')
+				->listCheck(true);
 		}
 
 		if ($user->authorise('core.admin', '{{prefix_component}}') || $user->authorise('core.options', '{{prefix_component}}'))

@@ -12,6 +12,7 @@
 {{prefix_component_uppercase}}_N_ITEMS_CHECKED_IN="%d item(s) checked in"
 {{prefix_component_uppercase}}_N_ITEMS_ARCHIVED="%d item(s) archived"
 {{prefix_component_uppercase}}_N_ITEMS_TRASHED="%d item(s) trashed"
+{{prefix_component_uppercase}}_N_ITEMS_DELETED="%d item(s) deleted"
 
 ;; Notes view
 {{prefix_component_uppercase}}_NOTES_TOOLBAR_LABEL="Notes"
