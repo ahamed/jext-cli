@@ -30,6 +30,6 @@ class VersionController extends BaseController implements ControllerInterface
 	 */
 	public function run(array $args = []) : void
 	{
-		Printer::println("Jext-CLI version 1.0.0");
+		Printer::println("Jext-CLI version 1.0.1");
 	}
 }
