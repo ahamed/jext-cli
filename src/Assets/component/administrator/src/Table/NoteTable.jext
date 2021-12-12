@@ -103,7 +103,7 @@ class NoteTable extends Table
 		$table = Table::getInstance('NoteTable', __NAMESPACE__ . '\\', array('dbo' => $this->getDbo()));
 		$table->load(array('alias' => $this->alias));
 
-		if ($table->load(array('alias' => $this->alias)) && ($table->id !== $this->id || $this->id === 0))
+		if ($table->load(array('alias' => $this->alias)) && ($table->id != $this->id || $this->id === 0))
 		{
 			$this->setError(Text::_('{{prefix_component_uppercase}}_ERROR_UNIQUE_ALIAS'));
 
