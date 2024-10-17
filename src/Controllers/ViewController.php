@@ -45,11 +45,11 @@ class ViewController extends BaseController implements ControllerInterface
 	/**
 	 * The component name.
 	 *
-	 * @var		string	$component	The component name (required).
+	 * @var		string	$componentName	The component name (required).
 	 *
 	 * @since	1.0.0
 	 */
-	protected $component;
+	protected $componentName;
 
 	/**
 	 * The view client.
@@ -69,7 +69,7 @@ class ViewController extends BaseController implements ControllerInterface
 	{
 		$this->singular = '';
 		$this->plural = '';
-		$this->component = '';
+		$this->componentName = '';
 
 		/** By default we assume that the client is --back if user skip it. */
 		$this->client = '--back';

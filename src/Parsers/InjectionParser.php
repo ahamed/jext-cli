@@ -43,7 +43,7 @@ class InjectionParser extends SourceParser
 	 *
 	 * @param	string	$type	The type to set.
 	 *
-	 * @return	void
+	 * @return	self
 	 *
 	 * @since	1.0.0
 	 */
